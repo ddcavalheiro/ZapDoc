@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { upload } from "@vercel/blob/client";
@@ -15,6 +15,18 @@ type FormIn = z.input<typeof reimbursementBaseSchema>;
 type FormOut = z.output<typeof reimbursementBaseSchema>;
 
 type Option = { id: number; name: string };
+
+const brlFormatter = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+});
+
+/** Converte o que o usuário digita (só dígitos = centavos) em reais. */
+function digitsToReais(raw: string): number | undefined {
+  const digits = raw.replace(/\D/g, "");
+  if (!digits) return undefined;
+  return Number(digits) / 100;
+}
 
 type PendingFile = {
   file: File;
@@ -35,6 +47,7 @@ export function PublicReimbursementForm({
 
   const {
     register,
+    control,
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
@@ -167,13 +180,23 @@ export function PublicReimbursementForm({
         >
           <Input {...register("fiscalDocNumber")} placeholder="Nº da nota / cupom" />
         </Field>
-        <Field label="Valor (R$)" error={errors.amount?.message} required>
-          <Input
-            type="number"
-            step="0.01"
-            min="0"
-            {...register("amount")}
-            placeholder="0,00"
+        <Field label="Valor" error={errors.amount?.message} required>
+          <Controller
+            control={control}
+            name="amount"
+            render={({ field }) => (
+              <Input
+                inputMode="numeric"
+                value={
+                  field.value === undefined || field.value === ""
+                    ? ""
+                    : brlFormatter.format(Number(field.value))
+                }
+                onChange={(e) => field.onChange(digitsToReais(e.target.value))}
+                onBlur={field.onBlur}
+                placeholder="R$ 0,00"
+              />
+            )}
           />
         </Field>
       </div>
