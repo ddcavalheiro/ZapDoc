@@ -1,5 +1,5 @@
 {
-  "id": "6a317ca0-92ce-4723-b87b-7334b11c5236",
+  "id": "31d5cf32-50eb-4793-ba8c-a6690dcf1b90",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -82,8 +82,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.reimbursement_attachments": {
-      "name": "reimbursement_attachments",
+    "public.note_attachments": {
+      "name": "note_attachments",
       "schema": "",
       "columns": {
         "id": {
@@ -92,8 +92,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "reimbursement_id": {
-          "name": "reimbursement_id",
+        "note_id": {
+          "name": "note_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -132,9 +132,73 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "reimbursement_attachments_reimbursement_id_reimbursements_id_fk": {
-          "name": "reimbursement_attachments_reimbursement_id_reimbursements_id_fk",
-          "tableFrom": "reimbursement_attachments",
+        "note_attachments_note_id_notes_id_fk": {
+          "name": "note_attachments_note_id_notes_id_fk",
+          "tableFrom": "note_attachments",
+          "tableTo": "notes",
+          "columnsFrom": [
+            "note_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.notes": {
+      "name": "notes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "reimbursement_id": {
+          "name": "reimbursement_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "supplier_name": {
+          "name": "supplier_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fiscal_doc_number": {
+          "name": "fiscal_doc_number",
+          "type": "varchar(120)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "notes_reimbursement_id_reimbursements_id_fk": {
+          "name": "notes_reimbursement_id_reimbursements_id_fk",
+          "tableFrom": "notes",
           "tableTo": "reimbursements",
           "columnsFrom": [
             "reimbursement_id"
@@ -189,18 +253,6 @@
         "description": {
           "name": "description",
           "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "supplier_name": {
-          "name": "supplier_name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "fiscal_doc_number": {
-          "name": "fiscal_doc_number",
-          "type": "varchar(120)",
           "primaryKey": false,
           "notNull": true
         },

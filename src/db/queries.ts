@@ -4,11 +4,23 @@ import {
   departments,
   expenseTypes,
   reimbursements,
-  reimbursementAttachments,
+  notes,
+  noteAttachments,
   statusHistory,
 } from "@/db/schema";
-import { and, asc, desc, eq, gte, ilike, lte, or, sql } from "drizzle-orm";
-import { isStatus, type Status } from "@/lib/status";
+import {
+  and,
+  asc,
+  desc,
+  eq,
+  gte,
+  ilike,
+  inArray,
+  lte,
+  or,
+  sql,
+} from "drizzle-orm";
+import { isStatus, OPEN_STATUSES, type Status } from "@/lib/status";
 
 export async function getActiveDepartments() {
   return db
@@ -34,8 +46,14 @@ export async function getAllExpenseTypes() {
   return db.select().from(expenseTypes).orderBy(asc(expenseTypes.name));
 }
 
+/** Valor especial do filtro de status: tudo que está "em aberto". */
+export const STATUS_FILTER_OPEN = "PENDENTES";
+/** Valor especial do filtro de status: todos (sem filtro). */
+export const STATUS_FILTER_ALL = "ALL";
+
 export interface ReimbursementFilters {
   status?: Status;
+  openOnly?: boolean; // filtro "Pendentes" (não pago nem recusado)
   departmentId?: number;
   expenseTypeId?: number;
   from?: string; // yyyy-mm-dd (expense_date)
@@ -52,6 +70,7 @@ export function filtersFromParams(
   const status = get("status");
   return {
     status: status && isStatus(status) ? (status as Status) : undefined,
+    openOnly: status === STATUS_FILTER_OPEN,
     departmentId: get("departmentId") ? Number(get("departmentId")) : undefined,
     expenseTypeId: get("expenseTypeId")
       ? Number(get("expenseTypeId"))
@@ -64,7 +83,8 @@ export function filtersFromParams(
 
 function buildWhere(f: ReimbursementFilters) {
   const conds = [];
-  if (f.status) conds.push(eq(reimbursements.status, f.status));
+  if (f.openOnly) conds.push(inArray(reimbursements.status, OPEN_STATUSES));
+  else if (f.status) conds.push(eq(reimbursements.status, f.status));
   if (f.departmentId)
     conds.push(eq(reimbursements.departmentId, f.departmentId));
   if (f.expenseTypeId)
@@ -76,9 +96,15 @@ function buildWhere(f: ReimbursementFilters) {
     conds.push(
       or(
         ilike(reimbursements.requesterName, term),
-        ilike(reimbursements.supplierName, term),
         ilike(reimbursements.payeeName, term),
-        ilike(reimbursements.fiscalDocNumber, term),
+        sql`exists (
+          select 1 from ${notes}
+          where ${notes.reimbursementId} = ${reimbursements.id}
+            and (
+              ${notes.supplierName} ilike ${term}
+              or ${notes.fiscalDocNumber} ilike ${term}
+            )
+        )`,
       ),
     );
   }
@@ -97,7 +123,7 @@ export type SortKey =
   | "date"
   | "amount"
   | "status"
-  | "attachments";
+  | "notes";
 
 const SORT_KEYS: SortKey[] = [
   "id",
@@ -107,7 +133,7 @@ const SORT_KEYS: SortKey[] = [
   "date",
   "amount",
   "status",
-  "attachments",
+  "notes",
 ];
 
 function isSortKey(v: string): v is SortKey {
@@ -136,10 +162,17 @@ export function listOptionsFromParams(
   };
 }
 
-/** Subconsulta de contagem de anexos (reusada no select e na ordenação). */
+/** Contagem de notas da solicitação (reusada no select e na ordenação). */
+const noteCountSql = sql<number>`(
+  select count(*) from ${notes}
+  where ${notes.reimbursementId} = ${reimbursements.id}
+)`;
+
+/** Contagem total de fotos (através das notas da solicitação). */
 const attachmentCountSql = sql<number>`(
-  select count(*) from ${reimbursementAttachments}
-  where ${reimbursementAttachments.reimbursementId} = ${reimbursements.id}
+  select count(*) from ${noteAttachments}
+  join ${notes} on ${noteAttachments.noteId} = ${notes.id}
+  where ${notes.reimbursementId} = ${reimbursements.id}
 )`;
 
 function sortExpr(sort?: SortKey) {
@@ -158,8 +191,8 @@ function sortExpr(sort?: SortKey) {
       return reimbursements.amount;
     case "status":
       return reimbursements.status;
-    case "attachments":
-      return attachmentCountSql;
+    case "notes":
+      return noteCountSql;
     default:
       return null;
   }
@@ -182,8 +215,6 @@ export async function listReimbursements(
       requesterName: reimbursements.requesterName,
       expenseDate: reimbursements.expenseDate,
       description: reimbursements.description,
-      supplierName: reimbursements.supplierName,
-      fiscalDocNumber: reimbursements.fiscalDocNumber,
       amount: reimbursements.amount,
       payeeName: reimbursements.payeeName,
       paymentDetails: reimbursements.paymentDetails,
@@ -195,6 +226,7 @@ export async function listReimbursements(
       expenseTypeId: reimbursements.expenseTypeId,
       departmentName: departments.name,
       expenseTypeName: expenseTypes.name,
+      noteCount: noteCountSql.mapWith(Number),
       attachmentCount: attachmentCountSql.mapWith(Number),
     })
     .from(reimbursements)
@@ -248,11 +280,27 @@ export async function getReimbursement(id: number) {
   )[0];
   if (!row) return null;
 
-  const attachments = await db
+  const noteRows = await db
     .select()
-    .from(reimbursementAttachments)
-    .where(eq(reimbursementAttachments.reimbursementId, id))
-    .orderBy(asc(reimbursementAttachments.id));
+    .from(notes)
+    .where(eq(notes.reimbursementId, id))
+    .orderBy(asc(notes.id));
+
+  const noteIds = noteRows.map((n) => n.id);
+  const atts = noteIds.length
+    ? await db
+        .select()
+        .from(noteAttachments)
+        .where(inArray(noteAttachments.noteId, noteIds))
+        .orderBy(asc(noteAttachments.id))
+    : [];
+
+  const notesWithAttachments = noteRows.map((n) => ({
+    ...n,
+    attachments: atts.filter((a) => a.noteId === n.id),
+  }));
+
+  const notesTotal = noteRows.reduce((s, n) => s + Number(n.amount), 0);
 
   const history = await db
     .select()
@@ -264,9 +312,25 @@ export async function getReimbursement(id: number) {
     ...row.r,
     departmentName: row.departmentName,
     expenseTypeName: row.expenseTypeName,
-    attachments,
+    notes: notesWithAttachments,
+    notesTotal,
     history,
   };
+}
+
+export type ReimbursementDetail = NonNullable<
+  Awaited<ReturnType<typeof getReimbursement>>
+>;
+export type NoteWithAttachments = ReimbursementDetail["notes"][number];
+
+/** Notas de um conjunto de solicitações (usado nas exportações). */
+export async function getNotesByReimbursementIds(ids: number[]) {
+  if (!ids.length) return [];
+  return db
+    .select()
+    .from(notes)
+    .where(inArray(notes.reimbursementId, ids))
+    .orderBy(asc(notes.id));
 }
 
 /** Agregações para o dashboard. */

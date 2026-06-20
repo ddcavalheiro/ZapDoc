@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllDepartments, getAllExpenseTypes, getReimbursement } from "@/db/queries";
 import { AdminEditForm } from "@/components/admin-edit-form";
+import { NotesManager } from "@/components/notes-manager";
 import { StatusForm } from "@/components/status-form";
 import { StatusBadge } from "@/components/status-badge";
 import { STATUS_LABELS, type Status } from "@/lib/status";
@@ -61,39 +62,13 @@ export default async function ReimbursementDetail({
 
           <section className="rounded-lg border border-slate-200 bg-white p-5">
             <h2 className="mb-4 text-sm font-semibold uppercase text-slate-500">
-              Fotos / documentos ({r.attachments.length})
+              Notas fiscais ({r.notes.length})
             </h2>
-            {r.attachments.length === 0 ? (
-              <p className="text-sm text-slate-400">Sem anexos.</p>
-            ) : (
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {r.attachments.map((a) => {
-                  const isImage = (a.contentType ?? "").startsWith("image/");
-                  return (
-                    <a
-                      key={a.id}
-                      href={a.blobUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group block overflow-hidden rounded-md border border-slate-200"
-                    >
-                      {isImage ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={a.blobUrl}
-                          alt="Nota fiscal"
-                          className="h-32 w-full object-cover transition group-hover:opacity-90"
-                        />
-                      ) : (
-                        <div className="flex h-32 items-center justify-center bg-slate-50 text-sm text-slate-500">
-                          📄 PDF
-                        </div>
-                      )}
-                    </a>
-                  );
-                })}
-              </div>
-            )}
+            <NotesManager
+              reimbursementId={r.id}
+              total={r.amount}
+              notes={r.notes}
+            />
           </section>
         </div>
 

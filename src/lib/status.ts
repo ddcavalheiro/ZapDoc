@@ -20,10 +20,20 @@ export const STATUS_ORDER: Status[] = [
   STATUS.RECUSADO,
 ];
 
+/**
+ * Status "em aberto" — tudo que ainda não foi pago nem recusado.
+ * Usado pelo filtro customizado "Pendentes" (padrão da listagem).
+ */
+export const OPEN_STATUSES: Status[] = [
+  STATUS.PENDENTE,
+  STATUS.VERIFICADO,
+  STATUS.AGUARDANDO_PAGAMENTO,
+];
+
 export const STATUS_LABELS: Record<Status, string> = {
-  PENDENTE: "Pendente",
-  VERIFICADO: "Verificado",
-  AGUARDANDO_PAGAMENTO: "Aguardando pagamento",
+  PENDENTE: "Novo",
+  VERIFICADO: "Verificando",
+  AGUARDANDO_PAGAMENTO: "Pendente de pagamento",
   PAGO: "Pago",
   RECUSADO: "Recusado",
 };

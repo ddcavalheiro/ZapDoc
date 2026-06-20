@@ -61,8 +61,6 @@ export const reimbursements = pgTable("reimbursements", {
     .notNull()
     .references(() => expenseTypes.id),
   description: text("description").notNull(),
-  supplierName: varchar("supplier_name", { length: 255 }).notNull(),
-  fiscalDocNumber: varchar("fiscal_doc_number", { length: 120 }).notNull(),
   amount: numeric("amount", { precision: 12, scale: 2 }).notNull(),
   payeeName: varchar("payee_name", { length: 255 }).notNull(),
   paymentDetails: text("payment_details").notNull(),
@@ -77,12 +75,26 @@ export const reimbursements = pgTable("reimbursements", {
   paidAt: timestamp("paid_at", { withTimezone: true }),
 });
 
-/** Anexos (fotos das notas) de cada solicitação. */
-export const reimbursementAttachments = pgTable("reimbursement_attachments", {
+/** Notas fiscais de uma solicitação (1 solicitação → N notas). */
+export const notes = pgTable("notes", {
   id: serial("id").primaryKey(),
   reimbursementId: integer("reimbursement_id")
     .notNull()
     .references(() => reimbursements.id, { onDelete: "cascade" }),
+  supplierName: varchar("supplier_name", { length: 255 }).notNull(),
+  fiscalDocNumber: varchar("fiscal_doc_number", { length: 120 }).notNull(),
+  amount: numeric("amount", { precision: 12, scale: 2 }).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+/** Anexos (fotos) de cada nota fiscal (1 nota → N fotos). */
+export const noteAttachments = pgTable("note_attachments", {
+  id: serial("id").primaryKey(),
+  noteId: integer("note_id")
+    .notNull()
+    .references(() => notes.id, { onDelete: "cascade" }),
   blobUrl: text("blob_url").notNull(),
   pathname: text("pathname").notNull(),
   contentType: varchar("content_type", { length: 120 }),
@@ -117,17 +129,25 @@ export const reimbursementsRelations = relations(
       fields: [reimbursements.expenseTypeId],
       references: [expenseTypes.id],
     }),
-    attachments: many(reimbursementAttachments),
+    notes: many(notes),
     history: many(statusHistory),
   }),
 );
 
-export const attachmentsRelations = relations(
-  reimbursementAttachments,
+export const notesRelations = relations(notes, ({ one, many }) => ({
+  reimbursement: one(reimbursements, {
+    fields: [notes.reimbursementId],
+    references: [reimbursements.id],
+  }),
+  attachments: many(noteAttachments),
+}));
+
+export const noteAttachmentsRelations = relations(
+  noteAttachments,
   ({ one }) => ({
-    reimbursement: one(reimbursements, {
-      fields: [reimbursementAttachments.reimbursementId],
-      references: [reimbursements.id],
+    note: one(notes, {
+      fields: [noteAttachments.noteId],
+      references: [notes.id],
     }),
   }),
 );
@@ -142,7 +162,7 @@ export const statusHistoryRelations = relations(statusHistory, ({ one }) => ({
 export type Department = typeof departments.$inferSelect;
 export type ExpenseType = typeof expenseTypes.$inferSelect;
 export type Reimbursement = typeof reimbursements.$inferSelect;
-export type ReimbursementAttachment =
-  typeof reimbursementAttachments.$inferSelect;
+export type Note = typeof notes.$inferSelect;
+export type NoteAttachment = typeof noteAttachments.$inferSelect;
 export type StatusHistoryRow = typeof statusHistory.$inferSelect;
 export type User = typeof users.$inferSelect;

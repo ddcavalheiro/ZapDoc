@@ -52,13 +52,7 @@ export function AdminEditForm({
             ))}
           </Select>
         </Field>
-        <Field label="Nome do fornecedor" error={fe.supplierName} required>
-          <Input name="supplierName" defaultValue={r.supplierName} />
-        </Field>
-        <Field label="Nº documento fiscal" error={fe.fiscalDocNumber} required>
-          <Input name="fiscalDocNumber" defaultValue={r.fiscalDocNumber} />
-        </Field>
-        <Field label="Valor (R$)" error={fe.amount} required>
+        <Field label="Valor a reembolsar (R$)" error={fe.amount} required>
           <Input
             type="number"
             step="0.01"

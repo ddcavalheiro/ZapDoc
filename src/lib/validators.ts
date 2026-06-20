@@ -18,6 +18,29 @@ export const attachmentSchema = z.object({
 
 export type AttachmentInput = z.infer<typeof attachmentSchema>;
 
+const moneyAmount = (label: string) =>
+  z.coerce
+    .number({ message: `Informe ${label}.` })
+    .positive(`${label} deve ser maior que zero.`);
+
+/** Dados de uma nota fiscal, sem anexos (edição pelo tesoureiro). */
+export const noteFieldsSchema = z.object({
+  supplierName: requiredString("Fornecedor"),
+  fiscalDocNumber: requiredString("Número da nota", 120),
+  amount: moneyAmount("o valor da nota"),
+});
+
+export type NoteFieldsInput = z.infer<typeof noteFieldsSchema>;
+
+/** Nota fiscal com suas fotos (envio público e adição pelo tesoureiro). */
+export const noteSchema = noteFieldsSchema.extend({
+  attachments: z
+    .array(attachmentSchema)
+    .min(1, "Envie ao menos uma foto da nota."),
+});
+
+export type NoteInput = z.infer<typeof noteSchema>;
+
 /** Campos editáveis de uma solicitação (usado no envio público e na edição). */
 export const reimbursementBaseSchema = z.object({
   requesterName: requiredString("Nome"),
@@ -33,27 +56,21 @@ export const reimbursementBaseSchema = z.object({
     .int()
     .positive("Selecione o tipo de despesa."),
   description: requiredString("Descrição", 2000),
-  supplierName: requiredString("Nome do fornecedor"),
-  fiscalDocNumber: requiredString("Número do documento fiscal", 120),
-  amount: z.coerce
-    .number({ message: "Informe o valor." })
-    .positive("O valor deve ser maior que zero."),
+  amount: moneyAmount("o valor a reembolsar"),
   payeeName: requiredString("Nome do recebedor"),
   paymentDetails: requiredString("Dados bancários / PIX", 500),
 });
 
-/** Payload completo do envio público (inclui anexos). */
+/** Payload completo do envio público (solicitação + notas com fotos). */
 export const createReimbursementSchema = reimbursementBaseSchema.extend({
-  attachments: z
-    .array(attachmentSchema)
-    .min(1, "Envie ao menos uma foto da nota fiscal."),
+  notes: z.array(noteSchema).min(1, "Adicione ao menos uma nota fiscal."),
 });
 
 export type CreateReimbursementInput = z.infer<
   typeof createReimbursementSchema
 >;
 
-/** Edição pelo tesoureiro (sem mexer nos anexos aqui). */
+/** Edição da solicitação pelo tesoureiro (campos gerais). */
 export const updateReimbursementSchema = reimbursementBaseSchema;
 
 export const statusSchema = z.enum(
