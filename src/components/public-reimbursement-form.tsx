@@ -370,13 +370,15 @@ export function PublicReimbursementForm({
                   {note.files.map((f, fi) => (
                     <li
                       key={fi}
-                      className="flex items-center justify-between rounded-md border border-slate-200 bg-white px-3 py-2 text-sm"
+                      className="flex items-center justify-between gap-3 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm"
                     >
-                      <span className="truncate text-slate-700">{f.name}</span>
+                      <span className="min-w-0 flex-1 truncate text-slate-700">
+                        {f.name}
+                      </span>
                       <button
                         type="button"
                         onClick={() => removeFile(i, fi)}
-                        className="ml-3 text-rose-600 hover:underline"
+                        className="shrink-0 text-rose-600 hover:underline"
                       >
                         remover
                       </button>
