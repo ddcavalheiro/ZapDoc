@@ -85,9 +85,98 @@ function buildWhere(f: ReimbursementFilters) {
   return conds.length ? and(...conds) : undefined;
 }
 
+/** Tamanho padrão da página na listagem. */
+export const PER_PAGE = 20;
+
+/** Colunas pelas quais a tabela de solicitações pode ser ordenada. */
+export type SortKey =
+  | "id"
+  | "requester"
+  | "department"
+  | "type"
+  | "date"
+  | "amount"
+  | "status"
+  | "attachments";
+
+const SORT_KEYS: SortKey[] = [
+  "id",
+  "requester",
+  "department",
+  "type",
+  "date",
+  "amount",
+  "status",
+  "attachments",
+];
+
+function isSortKey(v: string): v is SortKey {
+  return (SORT_KEYS as string[]).includes(v);
+}
+
+export interface ListOptions {
+  sort?: SortKey;
+  dir?: "asc" | "desc";
+  page?: number;
+  perPage?: number;
+}
+
+/** Lê ordenação/página dos query params, com defaults seguros. */
+export function listOptionsFromParams(
+  sp: Record<string, string | undefined> | URLSearchParams,
+): { sort?: SortKey; dir: "asc" | "desc"; page: number; perPage: number } {
+  const get = (k: string) =>
+    sp instanceof URLSearchParams ? sp.get(k) ?? undefined : sp[k];
+  const sortRaw = get("sort");
+  return {
+    sort: sortRaw && isSortKey(sortRaw) ? sortRaw : undefined,
+    dir: get("dir") === "asc" ? "asc" : "desc",
+    page: Math.max(1, Number(get("page")) || 1),
+    perPage: PER_PAGE,
+  };
+}
+
+/** Subconsulta de contagem de anexos (reusada no select e na ordenação). */
+const attachmentCountSql = sql<number>`(
+  select count(*) from ${reimbursementAttachments}
+  where ${reimbursementAttachments.reimbursementId} = ${reimbursements.id}
+)`;
+
+function sortExpr(sort?: SortKey) {
+  switch (sort) {
+    case "id":
+      return reimbursements.id;
+    case "requester":
+      return reimbursements.requesterName;
+    case "department":
+      return departments.name;
+    case "type":
+      return expenseTypes.name;
+    case "date":
+      return reimbursements.expenseDate;
+    case "amount":
+      return reimbursements.amount;
+    case "status":
+      return reimbursements.status;
+    case "attachments":
+      return attachmentCountSql;
+    default:
+      return null;
+  }
+}
+
 /** Lista solicitações com nomes de departamento/tipo e contagem de anexos. */
-export async function listReimbursements(f: ReimbursementFilters = {}) {
-  return db
+export async function listReimbursements(
+  f: ReimbursementFilters = {},
+  opts: ListOptions = {},
+) {
+  const expr = sortExpr(opts.sort);
+  const direction = opts.dir === "asc" ? asc : desc;
+  const orderBy = expr
+    ? [direction(expr), desc(reimbursements.id)]
+    : [desc(reimbursements.createdAt)];
+
+  let q = db
     .select({
       id: reimbursements.id,
       requesterName: reimbursements.requesterName,
@@ -106,16 +195,37 @@ export async function listReimbursements(f: ReimbursementFilters = {}) {
       expenseTypeId: reimbursements.expenseTypeId,
       departmentName: departments.name,
       expenseTypeName: expenseTypes.name,
-      attachmentCount: sql<number>`(
-        select count(*) from ${reimbursementAttachments}
-        where ${reimbursementAttachments.reimbursementId} = ${reimbursements.id}
-      )`.mapWith(Number),
+      attachmentCount: attachmentCountSql.mapWith(Number),
     })
     .from(reimbursements)
     .leftJoin(departments, eq(reimbursements.departmentId, departments.id))
     .leftJoin(expenseTypes, eq(reimbursements.expenseTypeId, expenseTypes.id))
     .where(buildWhere(f))
-    .orderBy(desc(reimbursements.createdAt));
+    .orderBy(...orderBy)
+    .$dynamic();
+
+  if (opts.perPage) {
+    const page = opts.page && opts.page > 0 ? opts.page : 1;
+    q = q.limit(opts.perPage).offset((page - 1) * opts.perPage);
+  }
+
+  return q;
+}
+
+/** Total de solicitações e soma de valores para os filtros atuais (paginação). */
+export async function countReimbursements(f: ReimbursementFilters = {}) {
+  const row = (
+    await db
+      .select({
+        count: sql<number>`count(*)`.mapWith(Number),
+        total: sql<number>`coalesce(sum(${reimbursements.amount}), 0)`.mapWith(
+          Number,
+        ),
+      })
+      .from(reimbursements)
+      .where(buildWhere(f))
+  )[0];
+  return { count: row?.count ?? 0, total: row?.total ?? 0 };
 }
 
 export type ReimbursementListItem = Awaited<

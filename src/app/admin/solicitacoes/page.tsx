@@ -1,13 +1,16 @@
 import Link from "next/link";
 import {
+  countReimbursements,
   filtersFromParams,
   getAllDepartments,
   getAllExpenseTypes,
+  listOptionsFromParams,
   listReimbursements,
+  type SortKey,
 } from "@/db/queries";
 import { StatusControl } from "@/components/status-control";
 import { Button } from "@/components/ui/button";
-import { Input, Select } from "@/components/ui/field";
+import { Input, Label, Select } from "@/components/ui/field";
 import { STATUS_LABELS, STATUS_ORDER, type Status } from "@/lib/status";
 import { formatBRL, formatDate } from "@/lib/utils";
 
@@ -22,74 +25,128 @@ export default async function SolicitacoesPage({
 }) {
   const sp = await searchParams;
   const filters = filtersFromParams(sp);
+  const { sort, dir, page, perPage } = listOptionsFromParams(sp);
 
-  const [rows, departments, expenseTypes] = await Promise.all([
-    listReimbursements(filters),
+  const [rows, summary, departments, expenseTypes] = await Promise.all([
+    listReimbursements(filters, { sort, dir, page, perPage }),
+    countReimbursements(filters),
     getAllDepartments(),
     getAllExpenseTypes(),
   ]);
 
-  const total = rows.reduce((acc, r) => acc + Number(r.amount), 0);
+  const totalPages = Math.max(1, Math.ceil(summary.count / perPage));
+
+  // Monta uma URL preservando os params atuais, aplicando overrides.
+  const hrefWith = (overrides: SP) => {
+    const params = new URLSearchParams();
+    for (const [k, v] of Object.entries(sp)) if (v) params.set(k, v);
+    for (const [k, v] of Object.entries(overrides)) {
+      if (v === undefined || v === "") params.delete(k);
+      else params.set(k, v);
+    }
+    const qs = params.toString();
+    return `/admin/solicitacoes${qs ? `?${qs}` : ""}`;
+  };
+
+  // Cabeçalho de coluna clicável que alterna a ordenação.
+  const sortableHeader = (
+    label: string,
+    col: SortKey,
+    align: "left" | "right" = "left",
+  ) => {
+    const active = sort === col;
+    const nextDir = active && dir === "asc" ? "desc" : "asc";
+    const arrow = active ? (dir === "asc" ? "▲" : "▼") : "↕";
+    return (
+      <th
+        key={col}
+        className={`px-3 py-2 ${align === "right" ? "text-right" : ""}`}
+      >
+        <Link
+          href={hrefWith({ sort: col, dir: nextDir, page: undefined })}
+          className={`inline-flex items-center gap-1 hover:text-slate-700 ${
+            active ? "text-slate-700" : ""
+          }`}
+        >
+          <span>{label}</span>
+          <span className={active ? "text-slate-500" : "text-slate-300"}>
+            {arrow}
+          </span>
+        </Link>
+      </th>
+    );
+  };
 
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-xl font-bold text-slate-900">Solicitações</h1>
         <span className="text-sm text-slate-500">
-          {rows.length} resultado(s) · {formatBRL(total)}
+          {summary.count} resultado(s) · {formatBRL(summary.total)}
         </span>
       </div>
 
       {/* Filtros (GET, URL compartilhável) */}
       <form
         method="get"
-        className="mb-5 grid grid-cols-1 gap-3 rounded-lg border border-slate-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-6"
+        className="mb-5 space-y-3 rounded-lg border border-slate-200 bg-white p-4"
       >
-        <Input
-          name="search"
-          defaultValue={sp.search ?? ""}
-          placeholder="Buscar nome, fornecedor, nº doc…"
-          className="lg:col-span-2"
-        />
-        <Select name="status" defaultValue={sp.status ?? ""}>
-          <option value="">Todos os status</option>
-          {STATUS_ORDER.map((s) => (
-            <option key={s} value={s}>
-              {STATUS_LABELS[s]}
-            </option>
-          ))}
-        </Select>
-        <Select name="departmentId" defaultValue={sp.departmentId ?? ""}>
-          <option value="">Todos os departamentos</option>
-          {departments.map((d) => (
-            <option key={d.id} value={d.id}>
-              {d.name}
-            </option>
-          ))}
-        </Select>
-        <Select name="expenseTypeId" defaultValue={sp.expenseTypeId ?? ""}>
-          <option value="">Todos os tipos</option>
-          {expenseTypes.map((t) => (
-            <option key={t.id} value={t.id}>
-              {t.name}
-            </option>
-          ))}
-        </Select>
-        <div className="flex items-center gap-2">
+        {/* Linha 1: busca + selects */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
           <Input
-            name="from"
-            type="date"
-            defaultValue={sp.from ?? ""}
-            aria-label="Data inicial"
+            name="search"
+            defaultValue={sp.search ?? ""}
+            placeholder="Buscar nome, fornecedor, nº doc…"
+            className="lg:col-span-2"
           />
-          <Input
-            name="to"
-            type="date"
-            defaultValue={sp.to ?? ""}
-            aria-label="Data final"
-          />
+          <Select name="status" defaultValue={sp.status ?? ""}>
+            <option value="">Todos os status</option>
+            {STATUS_ORDER.map((s) => (
+              <option key={s} value={s}>
+                {STATUS_LABELS[s]}
+              </option>
+            ))}
+          </Select>
+          <Select name="departmentId" defaultValue={sp.departmentId ?? ""}>
+            <option value="">Todos os departamentos</option>
+            {departments.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.name}
+              </option>
+            ))}
+          </Select>
+          <Select name="expenseTypeId" defaultValue={sp.expenseTypeId ?? ""}>
+            <option value="">Todos os tipos</option>
+            {expenseTypes.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.name}
+              </option>
+            ))}
+          </Select>
         </div>
-        <div className="flex gap-2 sm:col-span-2 lg:col-span-6">
+
+        {/* Linha 2: período (com labels) */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <Label htmlFor="from">Data inicial</Label>
+            <Input
+              id="from"
+              name="from"
+              type="date"
+              defaultValue={sp.from ?? ""}
+            />
+          </div>
+          <div>
+            <Label htmlFor="to">Data final</Label>
+            <Input id="to" name="to" type="date" defaultValue={sp.to ?? ""} />
+          </div>
+        </div>
+
+        {/* Preserva a ordenação ao reaplicar filtros */}
+        {sort && <input type="hidden" name="sort" value={sort} />}
+        {sort && <input type="hidden" name="dir" value={dir} />}
+
+        <div className="flex gap-2">
           <Button type="submit" size="sm">
             Filtrar
           </Button>
@@ -106,14 +163,14 @@ export default async function SolicitacoesPage({
         <table className="w-full text-left text-sm">
           <thead className="bg-slate-50 text-xs uppercase text-slate-500">
             <tr>
-              <th className="px-3 py-2">#</th>
-              <th className="px-3 py-2">Solicitante</th>
-              <th className="px-3 py-2">Departamento</th>
-              <th className="px-3 py-2">Tipo</th>
-              <th className="px-3 py-2">Data</th>
-              <th className="px-3 py-2 text-right">Valor</th>
-              <th className="px-3 py-2">Fotos</th>
-              <th className="px-3 py-2">Status</th>
+              {sortableHeader("#", "id")}
+              {sortableHeader("Solicitante", "requester")}
+              {sortableHeader("Departamento", "department")}
+              {sortableHeader("Tipo", "type")}
+              {sortableHeader("Data", "date")}
+              {sortableHeader("Valor", "amount", "right")}
+              {sortableHeader("Fotos", "attachments")}
+              {sortableHeader("Status", "status")}
               <th className="px-3 py-2"></th>
             </tr>
           </thead>
@@ -197,6 +254,51 @@ export default async function SolicitacoesPage({
           </p>
         )}
       </div>
+
+      {/* Paginação */}
+      {totalPages > 1 && (
+        <nav className="mt-4 flex items-center justify-between text-sm">
+          <span className="text-slate-500">
+            Página {page} de {totalPages}
+          </span>
+          <div className="flex gap-2">
+            {page > 1 ? (
+              <Link href={hrefWith({ page: String(page - 1) })}>
+                <Button type="button" size="sm" variant="outline">
+                  ← Anterior
+                </Button>
+              </Link>
+            ) : (
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                disabled
+                className="opacity-50"
+              >
+                ← Anterior
+              </Button>
+            )}
+            {page < totalPages ? (
+              <Link href={hrefWith({ page: String(page + 1) })}>
+                <Button type="button" size="sm" variant="outline">
+                  Próxima →
+                </Button>
+              </Link>
+            ) : (
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                disabled
+                className="opacity-50"
+              >
+                Próxima →
+              </Button>
+            )}
+          </div>
+        </nav>
+      )}
     </div>
   );
 }
