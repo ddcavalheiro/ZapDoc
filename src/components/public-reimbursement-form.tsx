@@ -270,18 +270,18 @@ export function PublicReimbursementForm({
       </Field>
 
       {/* Notas fiscais (1 ou mais) */}
-      <fieldset className="space-y-4 rounded-lg border border-slate-200 p-4">
-        <legend className="px-1 text-sm font-semibold text-slate-700">
+      <fieldset className="space-y-4 rounded-2xl border border-hairline p-4">
+        <legend className="px-1 text-sm font-semibold text-ink">
           Notas fiscais
         </legend>
 
         {notes.map((note, i) => (
           <div
             key={i}
-            className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4"
+            className="space-y-3 rounded-2xl border border-hairline bg-[#faf9f4] p-4"
           >
             <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold text-slate-700">
+              <span className="text-sm font-semibold text-ink">
                 Nota {i + 1}
               </span>
               {notes.length > 1 && (
@@ -347,8 +347,8 @@ export function PublicReimbursementForm({
               <Label>
                 Fotos da nota<span className="text-rose-600"> *</span>
               </Label>
-              <label className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-white px-4 py-5 text-center text-sm text-slate-500 hover:bg-slate-100">
-                <span className="font-medium text-slate-700">
+              <label className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-[#cfc9b7] bg-[#fbfaf6] px-4 py-5 text-center text-sm text-ink-muted hover:bg-[#f3f1e8]">
+                <span className="font-medium text-ink">
                   Toque para escolher ou tirar foto
                 </span>
                 <span className="text-xs">
@@ -370,9 +370,9 @@ export function PublicReimbursementForm({
                   {note.files.map((f, fi) => (
                     <li
                       key={fi}
-                      className="flex items-center justify-between gap-3 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm"
+                      className="flex items-center justify-between gap-3 rounded-md border border-hairline bg-surface px-3 py-2 text-sm"
                     >
-                      <span className="min-w-0 flex-1 truncate text-slate-700">
+                      <span className="min-w-0 flex-1 truncate text-ink">
                         {f.name}
                       </span>
                       <button
@@ -394,14 +394,14 @@ export function PublicReimbursementForm({
           <Button type="button" size="sm" variant="outline" onClick={addNoteRow}>
             + Adicionar nota
           </Button>
-          <span className="text-sm text-slate-500">
+          <span className="text-sm text-ink-muted">
             Soma das notas: <strong>{formatBRL(notesTotal)}</strong>
           </span>
         </div>
       </fieldset>
 
-      <fieldset className="rounded-lg border border-slate-200 p-4">
-        <legend className="px-1 text-sm font-semibold text-slate-700">
+      <fieldset className="rounded-2xl border border-hairline p-4">
+        <legend className="px-1 text-sm font-semibold text-ink">
           Dados para reembolso
         </legend>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -434,7 +434,7 @@ export function PublicReimbursementForm({
       <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
         {isSubmitting ? "Enviando…" : "Enviar solicitação"}
       </Button>
-      <p className="text-xs text-slate-400">
+      <p className="text-xs text-ink-faint">
         Ao enviar, sua solicitação entra como <strong>novo</strong> para
         conferência do tesoureiro.
       </p>

@@ -5,16 +5,15 @@ type Variant = "primary" | "secondary" | "outline" | "ghost" | "danger";
 type Size = "sm" | "md";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-slate-900 text-white hover:bg-slate-800 disabled:bg-slate-400",
-  secondary: "bg-slate-100 text-slate-900 hover:bg-slate-200",
-  outline:
-    "border border-slate-300 bg-white text-slate-900 hover:bg-slate-50",
-  ghost: "text-slate-700 hover:bg-slate-100",
-  danger: "bg-rose-600 text-white hover:bg-rose-500 disabled:bg-rose-300",
+  primary: "bg-brand text-white hover:bg-brand-600 disabled:bg-[#9bbcb1]",
+  secondary: "bg-[#eef1e9] text-ink hover:bg-[#e4e8dd]",
+  outline: "border border-hairline bg-surface text-ink hover:bg-[#fbfaf6]",
+  ghost: "text-ink-muted hover:bg-[#eef1e9]",
+  danger: "bg-[#b23a2e] text-white hover:bg-[#9b2f24] disabled:bg-[#d9b0aa]",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-8 px-3 text-sm",
+  sm: "h-9 px-3.5 text-sm",
   md: "h-10 px-4 text-sm",
 };
 
@@ -29,7 +28,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     <button
       ref={ref}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 disabled:cursor-not-allowed",
+        "inline-flex items-center justify-center gap-2 rounded-[10px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand disabled:cursor-not-allowed",
         variants[variant],
         sizes[size],
         className,

@@ -18,16 +18,44 @@ export const statusEnum = pgEnum(
   STATUS_VALUES as [string, ...string[]],
 );
 
-/** Usuários da área do tesoureiro (login). */
+/** Papéis de acesso. Hoje só existe ADMIN (acesso uniforme no backend). */
+export const roles = pgTable("roles", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 60 }).notNull().unique(),
+  description: text("description"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+/** Usuários da área administrativa (login + MFA). */
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   passwordHash: text("password_hash").notNull(),
   name: varchar("name", { length: 255 }).notNull(),
+  roleId: integer("role_id")
+    .notNull()
+    .references(() => roles.id),
+  // 1º acesso: senha temporária precisa ser trocada antes de liberar a conta.
+  mustChangePassword: boolean("must_change_password").notNull().default(false),
+  // MFA (TOTP): segredo cifrado em repouso; só fica "enabled" após confirmação.
+  mfaEnabled: boolean("mfa_enabled").notNull().default(false),
+  totpSecret: text("totp_secret"),
+  mfaConfirmedAt: timestamp("mfa_confirmed_at", { withTimezone: true }),
+  // Permite desativar o acesso sem apagar o histórico do usuário.
+  active: boolean("active").notNull().default(true),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
 });
+
+export const usersRelations = relations(users, ({ one }) => ({
+  role: one(roles, {
+    fields: [users.roleId],
+    references: [roles.id],
+  }),
+}));
 
 /** Cadastro de departamentos (alimenta o select do formulário). */
 export const departments = pgTable("departments", {
@@ -166,3 +194,4 @@ export type Note = typeof notes.$inferSelect;
 export type NoteAttachment = typeof noteAttachments.$inferSelect;
 export type StatusHistoryRow = typeof statusHistory.$inferSelect;
 export type User = typeof users.$inferSelect;
+export type Role = typeof roles.$inferSelect;

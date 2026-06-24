@@ -13,37 +13,37 @@ export default async function EnviadoPage({
       <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-2xl">
         ✓
       </div>
-      <h1 className="mt-4 text-2xl font-bold text-slate-900">
+      <h1 className="mt-4 text-2xl font-bold text-ink">
         Solicitação enviada!
       </h1>
-      <p className="mt-2 text-slate-600">
+      <p className="mt-2 text-ink-muted">
         Recebemos sua solicitação de reembolso. Ela está <strong>nova</strong>,
         aguardando conferência pelo tesoureiro.
       </p>
 
       {protocolo && (
-        <div className="mt-4 w-full rounded-lg border border-slate-200 bg-slate-50 px-5 py-4 text-left text-sm">
+        <div className="mt-4 w-full rounded-2xl border border-hairline bg-[#faf9f4] px-5 py-4 text-left text-sm">
           <div className="flex justify-between gap-3 py-1">
-            <span className="text-slate-500">Protocolo</span>
-            <span className="font-semibold text-slate-800">#{protocolo}</span>
+            <span className="text-ink-muted">Protocolo</span>
+            <span className="font-semibold text-ink">#{protocolo}</span>
           </div>
           {valor && (
             <div className="flex justify-between gap-3 py-1">
-              <span className="text-slate-500">Valor solicitado</span>
-              <span className="font-semibold text-slate-800">
+              <span className="text-ink-muted">Valor solicitado</span>
+              <span className="font-semibold text-ink">
                 {formatBRL(valor)}
               </span>
             </div>
           )}
           {data && (
             <div className="flex justify-between gap-3 py-1">
-              <span className="text-slate-500">Data de envio</span>
-              <span className="font-semibold text-slate-800">
+              <span className="text-ink-muted">Data de envio</span>
+              <span className="font-semibold text-ink">
                 {formatDateTime(data)}
               </span>
             </div>
           )}
-          <p className="mt-2 text-xs text-slate-400">
+          <p className="mt-2 text-xs text-ink-faint">
             Guarde este comprovante (você pode tirar um print desta tela).
           </p>
         </div>
@@ -51,7 +51,7 @@ export default async function EnviadoPage({
 
       <Link
         href="/"
-        className="mt-8 inline-flex h-10 items-center rounded-md bg-slate-900 px-4 text-sm font-medium text-white hover:bg-slate-800"
+        className="mt-8 inline-flex h-10 items-center rounded-md bg-brand px-4 text-sm font-medium text-white hover:bg-brand-600"
       >
         Enviar outra solicitação
       </Link>

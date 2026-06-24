@@ -32,14 +32,14 @@ export default async function ReimbursementDetail({
         <div>
           <Link
             href="/admin/solicitacoes"
-            className="text-sm text-slate-500 hover:underline"
+            className="text-sm text-ink-muted hover:underline"
           >
             ← Voltar
           </Link>
-          <h1 className="mt-1 text-xl font-bold text-slate-900">
+          <h1 className="mt-1 text-xl font-bold text-ink">
             Solicitação #{r.id}
           </h1>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-ink-muted">
             Enviada em {formatDateTime(r.createdAt)}
           </p>
         </div>
@@ -49,8 +49,8 @@ export default async function ReimbursementDetail({
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Coluna principal */}
         <div className="space-y-6 lg:col-span-2">
-          <section className="rounded-lg border border-slate-200 bg-white p-5">
-            <h2 className="mb-4 text-sm font-semibold uppercase text-slate-500">
+          <section className="rounded-2xl border border-hairline bg-surface p-5">
+            <h2 className="mb-4 text-sm font-semibold uppercase text-ink-muted">
               Dados da solicitação
             </h2>
             <AdminEditForm
@@ -60,8 +60,8 @@ export default async function ReimbursementDetail({
             />
           </section>
 
-          <section className="rounded-lg border border-slate-200 bg-white p-5">
-            <h2 className="mb-4 text-sm font-semibold uppercase text-slate-500">
+          <section className="rounded-2xl border border-hairline bg-surface p-5">
+            <h2 className="mb-4 text-sm font-semibold uppercase text-ink-muted">
               Notas fiscais ({r.notes.length})
             </h2>
             <NotesManager
@@ -74,8 +74,8 @@ export default async function ReimbursementDetail({
 
         {/* Coluna lateral */}
         <div className="space-y-6">
-          <section className="rounded-lg border border-slate-200 bg-white p-5">
-            <h2 className="mb-3 text-sm font-semibold uppercase text-slate-500">
+          <section className="rounded-2xl border border-hairline bg-surface p-5">
+            <h2 className="mb-3 text-sm font-semibold uppercase text-ink-muted">
               Resumo
             </h2>
             <dl className="space-y-2 text-sm">
@@ -94,32 +94,32 @@ export default async function ReimbursementDetail({
             </dl>
           </section>
 
-          <section className="rounded-lg border border-slate-200 bg-white p-5">
-            <h2 className="mb-3 text-sm font-semibold uppercase text-slate-500">
+          <section className="rounded-2xl border border-hairline bg-surface p-5">
+            <h2 className="mb-3 text-sm font-semibold uppercase text-ink-muted">
               Mudar status
             </h2>
             <StatusForm id={r.id} current={r.status as Status} />
           </section>
 
-          <section className="rounded-lg border border-slate-200 bg-white p-5">
-            <h2 className="mb-3 text-sm font-semibold uppercase text-slate-500">
+          <section className="rounded-2xl border border-hairline bg-surface p-5">
+            <h2 className="mb-3 text-sm font-semibold uppercase text-ink-muted">
               Histórico
             </h2>
             <ol className="space-y-3">
               {r.history.map((h) => (
                 <li key={h.id} className="text-sm">
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-slate-700">
+                    <span className="font-medium text-ink">
                       {h.fromStatus
                         ? `${STATUS_LABELS[h.fromStatus as Status]} → ${STATUS_LABELS[h.toStatus as Status]}`
                         : STATUS_LABELS[h.toStatus as Status]}
                     </span>
-                    <span className="text-xs text-slate-400">
+                    <span className="text-xs text-ink-faint">
                       {formatDateTime(h.changedAt)}
                     </span>
                   </div>
                   {h.note && (
-                    <p className="text-xs text-slate-500">{h.note}</p>
+                    <p className="text-xs text-ink-muted">{h.note}</p>
                   )}
                 </li>
               ))}
@@ -134,8 +134,8 @@ export default async function ReimbursementDetail({
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between gap-3">
-      <dt className="text-slate-500">{label}</dt>
-      <dd className="text-right font-medium text-slate-800">{value}</dd>
+      <dt className="text-ink-muted">{label}</dt>
+      <dd className="text-right font-medium text-ink">{value}</dd>
     </div>
   );
 }

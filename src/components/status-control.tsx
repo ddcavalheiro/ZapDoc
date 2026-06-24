@@ -52,7 +52,7 @@ export function StatusControl({
         defaultValue={status}
         onChange={onChange}
         disabled={pending}
-        className="rounded-md border border-slate-300 bg-white px-2 py-1 text-xs font-medium text-slate-800 focus:outline-none focus:ring-1 focus:ring-slate-500 disabled:opacity-60"
+        className="rounded-md border border-hairline bg-surface px-2 py-1 text-xs font-medium text-ink focus:outline-none focus:ring-1 focus:ring-brand disabled:opacity-60"
       >
         {STATUS_ORDER.map((s) => (
           <option key={s} value={s}>

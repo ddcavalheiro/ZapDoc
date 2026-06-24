@@ -33,11 +33,11 @@ export function CatalogManager({
 
   return (
     <div>
-      <h1 className="mb-4 text-xl font-bold text-slate-900">{title}</h1>
+      <h1 className="mb-4 text-xl font-bold text-ink">{title}</h1>
 
       <form
         action={formAction}
-        className="mb-6 flex flex-col gap-2 rounded-lg border border-slate-200 bg-white p-4 sm:flex-row"
+        className="mb-6 flex flex-col gap-2 rounded-2xl border border-hairline bg-surface p-4 sm:flex-row"
       >
         <div className="flex-1">
           <Input name="name" placeholder={placeholder} />
@@ -52,12 +52,12 @@ export function CatalogManager({
         </Button>
       </form>
 
-      <ul className="divide-y divide-slate-100 rounded-lg border border-slate-200 bg-white">
+      <ul className="divide-y divide-hairline rounded-2xl border border-hairline bg-surface">
         {items.map((item) => (
           <CatalogRow key={item.id} kind={kind} item={item} />
         ))}
         {items.length === 0 && (
-          <li className="px-4 py-6 text-center text-sm text-slate-400">
+          <li className="px-4 py-6 text-center text-sm text-ink-faint">
             Nenhum item cadastrado.
           </li>
         )}
@@ -117,7 +117,7 @@ function CatalogRow({ kind, item }: { kind: Kind; item: Item }) {
         <div className="flex items-center justify-between gap-3">
           <span
             className={
-              item.active ? "text-slate-800" : "text-slate-400 line-through"
+              item.active ? "text-ink" : "text-ink-faint line-through"
             }
           >
             {item.name}
@@ -127,7 +127,7 @@ function CatalogRow({ kind, item }: { kind: Kind; item: Item }) {
               className={`rounded-full px-2 py-0.5 text-xs ${
                 item.active
                   ? "bg-emerald-100 text-emerald-700"
-                  : "bg-slate-100 text-slate-500"
+                  : "bg-[#eef1e9] text-ink-muted"
               }`}
             >
               {item.active ? "Ativo" : "Inativo"}
@@ -135,13 +135,13 @@ function CatalogRow({ kind, item }: { kind: Kind; item: Item }) {
             <button
               onClick={toggle}
               disabled={pending}
-              className="text-sm text-slate-500 hover:underline disabled:opacity-50"
+              className="text-sm text-ink-muted hover:underline disabled:opacity-50"
             >
               {item.active ? "Desativar" : "Ativar"}
             </button>
             <button
               onClick={() => setEditing(true)}
-              className="text-sm text-slate-700 hover:underline"
+              className="text-sm text-brand hover:underline"
             >
               Editar
             </button>

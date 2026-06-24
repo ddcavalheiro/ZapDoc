@@ -95,3 +95,56 @@ export const catalogSchema = z.object({
 });
 
 export type CatalogInput = z.infer<typeof catalogSchema>;
+
+const emailField = z
+  .string({ message: "Email é obrigatório." })
+  .trim()
+  .toLowerCase()
+  .email("Informe um email válido.")
+  .max(255);
+
+const newPassword = z
+  .string({ message: "Senha é obrigatória." })
+  .min(8, "A senha deve ter ao menos 8 caracteres.")
+  .max(100, "A senha deve ter no máximo 100 caracteres.");
+
+/** Criação de usuário pelo admin (senha temporária é gerada pelo sistema). */
+export const createUserSchema = z.object({
+  name: requiredString("Nome"),
+  email: emailField,
+  roleId: z.coerce
+    .number({ message: "Selecione o papel." })
+    .int()
+    .positive("Selecione o papel."),
+});
+
+export type CreateUserInput = z.infer<typeof createUserSchema>;
+
+/** Edição de usuário (nome e papel). */
+export const updateUserSchema = z.object({
+  name: requiredString("Nome"),
+  roleId: z.coerce
+    .number({ message: "Selecione o papel." })
+    .int()
+    .positive("Selecione o papel."),
+});
+
+/** Troca de senha no 1º acesso (onboarding). */
+export const changePasswordSchema = z
+  .object({
+    currentPassword: z.string().min(1, "Informe a senha atual."),
+    newPassword,
+    confirmPassword: z.string().min(1, "Confirme a nova senha."),
+  })
+  .refine((d) => d.newPassword === d.confirmPassword, {
+    message: "As senhas não conferem.",
+    path: ["confirmPassword"],
+  });
+
+/** Cadastro de papel (role). */
+export const roleSchema = z.object({
+  name: requiredString("Nome", 60),
+  description: z.string().trim().max(500).optional(),
+});
+
+export type RoleInput = z.infer<typeof roleSchema>;

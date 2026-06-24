@@ -59,27 +59,20 @@ export default async function SolicitacoesPage({
   };
 
   // Cabeçalho de coluna clicável que alterna a ordenação.
-  const sortableHeader = (
-    label: string,
-    col: SortKey,
-    align: "left" | "right" = "left",
-  ) => {
+  const sortableHeader = (label: string, col: SortKey) => {
     const active = sort === col;
     const nextDir = active && dir === "asc" ? "desc" : "asc";
     const arrow = active ? (dir === "asc" ? "▲" : "▼") : "↕";
     return (
-      <th
-        key={col}
-        className={`px-3 py-2 ${align === "right" ? "text-right" : ""}`}
-      >
+      <th key={col} className="px-3 py-2 text-center">
         <Link
           href={hrefWith({ sort: col, dir: nextDir, page: undefined })}
-          className={`inline-flex items-center gap-1 hover:text-slate-700 ${
-            active ? "text-slate-700" : ""
+          className={`inline-flex items-center justify-center gap-1 hover:text-ink ${
+            active ? "text-ink" : ""
           }`}
         >
           <span>{label}</span>
-          <span className={active ? "text-slate-500" : "text-slate-300"}>
+          <span className={active ? "text-ink-muted" : "text-ink-faint"}>
             {arrow}
           </span>
         </Link>
@@ -90,28 +83,16 @@ export default async function SolicitacoesPage({
   return (
     <div>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-xl font-bold text-slate-900">Solicitações</h1>
-        <div className="flex items-center gap-3">
-          <span className="text-sm text-slate-500">
-            {summary.count} resultado(s) · {formatBRL(summary.total)}
-          </span>
-          <a href={`/api/relatorios/export?format=xlsx&${exportQs}`}>
-            <Button type="button" size="sm" variant="outline">
-              Excel
-            </Button>
-          </a>
-          <a href={`/api/relatorios/export?format=pdf&${exportQs}`}>
-            <Button type="button" size="sm" variant="outline">
-              PDF
-            </Button>
-          </a>
-        </div>
+        <h1 className="text-xl font-bold text-ink">Solicitações</h1>
+        <span className="text-sm text-ink-muted">
+          {summary.count} resultado(s) · {formatBRL(summary.total)}
+        </span>
       </div>
 
       {/* Filtros (GET, URL compartilhável) */}
       <form
         method="get"
-        className="mb-5 space-y-3 rounded-lg border border-slate-200 bg-white p-4"
+        className="mb-5 space-y-3 rounded-2xl border border-hairline bg-surface p-4"
       >
         {/* Linha 1: busca + selects (todos com label) */}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
@@ -189,7 +170,7 @@ export default async function SolicitacoesPage({
         {sort && <input type="hidden" name="sort" value={sort} />}
         {sort && <input type="hidden" name="dir" value={dir} />}
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Button type="submit" size="sm">
             Filtrar
           </Button>
@@ -198,45 +179,57 @@ export default async function SolicitacoesPage({
               Limpar
             </Button>
           </Link>
+          <div className="ml-auto flex gap-2">
+            <a href={`/api/relatorios/export?format=xlsx&${exportQs}`}>
+              <Button type="button" size="sm" variant="outline">
+                Excel
+              </Button>
+            </a>
+            <a href={`/api/relatorios/export?format=pdf&${exportQs}`}>
+              <Button type="button" size="sm" variant="outline">
+                PDF
+              </Button>
+            </a>
+          </div>
         </div>
       </form>
 
       {/* Tabela (desktop) */}
-      <div className="hidden overflow-x-auto rounded-lg border border-slate-200 bg-white md:block">
+      <div className="hidden overflow-x-auto rounded-2xl border border-hairline bg-surface md:block">
         <table className="w-full text-left text-sm">
-          <thead className="bg-slate-50 text-xs uppercase text-slate-500">
+          <thead className="bg-[#faf9f4] text-xs uppercase text-ink-muted">
             <tr>
               {sortableHeader("#", "id")}
               {sortableHeader("Solicitante", "requester")}
               {sortableHeader("Departamento", "department")}
               {sortableHeader("Tipo", "type")}
               {sortableHeader("Data", "date")}
-              {sortableHeader("Valor", "amount", "right")}
+              {sortableHeader("Valor", "amount")}
               {sortableHeader("Qtde Notas", "notes")}
-              <th className="px-3 py-2">Fotos</th>
+              <th className="px-3 py-2 text-center">Fotos</th>
               {sortableHeader("Status", "status")}
               <th className="px-3 py-2"></th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-hairline">
             {rows.map((r) => (
-              <tr key={r.id} className="hover:bg-slate-50">
-                <td className="px-3 py-2 text-slate-400">#{r.id}</td>
-                <td className="px-3 py-2 font-medium text-slate-800">
+              <tr key={r.id} className="hover:bg-[#faf9f4]">
+                <td className="px-3 py-2 text-ink-faint">#{r.id}</td>
+                <td className="px-3 py-2 font-medium text-ink">
                   {r.requesterName}
                 </td>
-                <td className="px-3 py-2 text-slate-600">{r.departmentName}</td>
-                <td className="px-3 py-2 text-slate-600">{r.expenseTypeName}</td>
-                <td className="px-3 py-2 text-slate-600">
+                <td className="px-3 py-2 text-ink-muted">{r.departmentName}</td>
+                <td className="px-3 py-2 text-ink-muted">{r.expenseTypeName}</td>
+                <td className="px-3 py-2 text-ink-muted">
                   {formatDate(r.expenseDate)}
                 </td>
-                <td className="px-3 py-2 text-right font-medium text-slate-800">
+                <td className="px-3 py-2 text-right font-medium text-ink">
                   {formatBRL(r.amount)}
                 </td>
-                <td className="px-3 py-2 text-center text-slate-600">
+                <td className="px-3 py-2 text-center text-ink-muted">
                   {r.noteCount}
                 </td>
-                <td className="px-3 py-2 text-center text-slate-600">
+                <td className="px-3 py-2 text-center text-ink-muted">
                   {r.attachmentCount}
                 </td>
                 <td className="px-3 py-2">
@@ -245,7 +238,7 @@ export default async function SolicitacoesPage({
                 <td className="px-3 py-2 text-right">
                   <Link
                     href={`/admin/solicitacoes/${r.id}`}
-                    className="text-sm font-medium text-slate-700 hover:underline"
+                    className="text-sm font-medium text-brand hover:underline"
                   >
                     Ver
                   </Link>
@@ -254,7 +247,7 @@ export default async function SolicitacoesPage({
             ))}
             {rows.length === 0 && (
               <tr>
-                <td colSpan={10} className="px-3 py-8 text-center text-slate-400">
+                <td colSpan={10} className="px-3 py-8 text-center text-ink-faint">
                   Nenhuma solicitação encontrada.
                 </td>
               </tr>
@@ -268,22 +261,22 @@ export default async function SolicitacoesPage({
         {rows.map((r) => (
           <div
             key={r.id}
-            className="rounded-lg border border-slate-200 bg-white p-4"
+            className="rounded-2xl border border-hairline bg-surface p-4"
           >
             <div className="flex items-start justify-between">
               <div>
-                <p className="font-semibold text-slate-800">
+                <p className="font-semibold text-ink">
                   {r.requesterName}
                 </p>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-ink-muted">
                   #{r.id} · {formatDate(r.expenseDate)}
                 </p>
               </div>
-              <span className="font-medium text-slate-800">
+              <span className="font-medium text-ink">
                 {formatBRL(r.amount)}
               </span>
             </div>
-            <p className="mt-1 text-sm text-slate-600">
+            <p className="mt-1 text-sm text-ink-muted">
               {r.departmentName} · {r.expenseTypeName} · {r.noteCount} nota(s) ·{" "}
               {r.attachmentCount} foto(s)
             </p>
@@ -291,7 +284,7 @@ export default async function SolicitacoesPage({
               <StatusControl id={r.id} status={r.status as Status} />
               <Link
                 href={`/admin/solicitacoes/${r.id}`}
-                className="text-sm font-medium text-slate-700 hover:underline"
+                className="text-sm font-medium text-brand hover:underline"
               >
                 Ver detalhes
               </Link>
@@ -299,7 +292,7 @@ export default async function SolicitacoesPage({
           </div>
         ))}
         {rows.length === 0 && (
-          <p className="py-8 text-center text-slate-400">
+          <p className="py-8 text-center text-ink-faint">
             Nenhuma solicitação encontrada.
           </p>
         )}
@@ -308,7 +301,7 @@ export default async function SolicitacoesPage({
       {/* Paginação */}
       {totalPages > 1 && (
         <nav className="mt-4 flex items-center justify-between text-sm">
-          <span className="text-slate-500">
+          <span className="text-ink-muted">
             Página {page} de {totalPages}
           </span>
           <div className="flex gap-2">

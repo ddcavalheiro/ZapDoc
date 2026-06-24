@@ -51,7 +51,7 @@ export default async function RelatoriosPage({
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-xl font-bold text-slate-900">Relatórios</h1>
+        <h1 className="text-xl font-bold text-ink">Relatórios</h1>
         <a href={`/api/relatorios/export?${exportQs}`}>
           <Button size="sm">Exportar CSV</Button>
         </a>
@@ -59,7 +59,7 @@ export default async function RelatoriosPage({
 
       <form
         method="get"
-        className="grid grid-cols-1 gap-3 rounded-lg border border-slate-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-5"
+        className="grid grid-cols-1 gap-3 rounded-2xl border border-hairline bg-surface p-4 sm:grid-cols-2 lg:grid-cols-5"
       >
         <Select name="status" defaultValue={sp.status ?? ""}>
           <option value="">Todos os status</option>
@@ -111,13 +111,13 @@ export default async function RelatoriosPage({
           return (
             <div
               key={s}
-              className="rounded-lg border border-slate-200 bg-white p-3"
+              className="rounded-2xl border border-hairline bg-surface p-3"
             >
               <StatusBadge status={s} />
-              <p className="mt-2 text-lg font-bold text-slate-800">
+              <p className="mt-2 font-display text-lg font-bold tnum text-ink">
                 {d?.count ?? 0}
               </p>
-              <p className="text-xs text-slate-500">
+              <p className="tnum text-xs text-ink-muted">
                 {formatBRL(d?.total ?? 0)}
               </p>
             </div>
@@ -125,9 +125,9 @@ export default async function RelatoriosPage({
         })}
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white">
+      <div className="overflow-x-auto rounded-2xl border border-hairline bg-surface">
         <table className="w-full text-left text-sm">
-          <thead className="bg-slate-50 text-xs uppercase text-slate-500">
+          <thead className="bg-[#faf9f4] text-xs uppercase text-ink-muted">
             <tr>
               <th className="px-3 py-2">#</th>
               <th className="px-3 py-2">Solicitante</th>
@@ -138,27 +138,27 @@ export default async function RelatoriosPage({
               <th className="px-3 py-2 text-right">Valor</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-hairline">
             {rows.map((r) => (
               <tr key={r.id}>
-                <td className="px-3 py-2 text-slate-400">#{r.id}</td>
-                <td className="px-3 py-2 text-slate-800">{r.requesterName}</td>
-                <td className="px-3 py-2 text-slate-600">{r.departmentName}</td>
-                <td className="px-3 py-2 text-slate-600">{r.expenseTypeName}</td>
-                <td className="px-3 py-2 text-slate-600">
+                <td className="px-3 py-2 text-ink-faint">#{r.id}</td>
+                <td className="px-3 py-2 text-ink">{r.requesterName}</td>
+                <td className="px-3 py-2 text-ink-muted">{r.departmentName}</td>
+                <td className="px-3 py-2 text-ink-muted">{r.expenseTypeName}</td>
+                <td className="px-3 py-2 text-ink-muted">
                   {formatDate(r.expenseDate)}
                 </td>
                 <td className="px-3 py-2">
                   <StatusBadge status={r.status as Status} />
                 </td>
-                <td className="px-3 py-2 text-right font-medium text-slate-800">
+                <td className="px-3 py-2 text-right font-medium text-ink">
                   {formatBRL(r.amount)}
                 </td>
               </tr>
             ))}
             {rows.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-3 py-8 text-center text-slate-400">
+                <td colSpan={7} className="px-3 py-8 text-center text-ink-faint">
                   Nenhum registro no período/filtro.
                 </td>
               </tr>
@@ -166,7 +166,7 @@ export default async function RelatoriosPage({
           </tbody>
           {rows.length > 0 && (
             <tfoot>
-              <tr className="border-t border-slate-200 bg-slate-50 font-semibold">
+              <tr className="border-t border-hairline bg-[#faf9f4] font-semibold">
                 <td className="px-3 py-2" colSpan={6}>
                   Total ({rows.length})
                 </td>

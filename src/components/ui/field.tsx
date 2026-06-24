@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const base =
-  "w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500 disabled:bg-slate-100";
+  "w-full rounded-[10px] border border-[#e0dbcb] bg-surface px-3 py-2.5 text-sm text-ink shadow-sm placeholder:text-[#a8a496] focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand disabled:bg-paper";
 
 export function Label({
   className,
@@ -11,7 +11,7 @@ export function Label({
 }: React.LabelHTMLAttributes<HTMLLabelElement>) {
   return (
     <label
-      className={cn("mb-1 block text-sm font-medium text-slate-700", className)}
+      className={cn("mb-1 block text-sm font-semibold text-ink", className)}
       {...props}
     >
       {children}

@@ -7,6 +7,8 @@ import {
   notes,
   noteAttachments,
   statusHistory,
+  users,
+  roles,
 } from "@/db/schema";
 import {
   and,
@@ -44,6 +46,28 @@ export async function getActiveExpenseTypes() {
 
 export async function getAllExpenseTypes() {
   return db.select().from(expenseTypes).orderBy(asc(expenseTypes.name));
+}
+
+export async function getAllUsers() {
+  return db
+    .select({
+      id: users.id,
+      name: users.name,
+      email: users.email,
+      roleId: users.roleId,
+      roleName: roles.name,
+      active: users.active,
+      mfaEnabled: users.mfaEnabled,
+      mustChangePassword: users.mustChangePassword,
+      createdAt: users.createdAt,
+    })
+    .from(users)
+    .leftJoin(roles, eq(users.roleId, roles.id))
+    .orderBy(asc(users.name));
+}
+
+export async function getAllRoles() {
+  return db.select().from(roles).orderBy(asc(roles.name));
 }
 
 /** Valor especial do filtro de status: tudo que está "em aberto". */

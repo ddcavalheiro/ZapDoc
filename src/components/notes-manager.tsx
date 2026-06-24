@@ -55,7 +55,7 @@ function AttachmentThumb({
 }) {
   const isImage = (contentType ?? "").startsWith("image/");
   return (
-    <div className="group relative overflow-hidden rounded-md border border-slate-200">
+    <div className="group relative overflow-hidden rounded-md border border-hairline">
       <a href={url} target="_blank" rel="noopener noreferrer">
         {isImage ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -65,7 +65,7 @@ function AttachmentThumb({
             className="h-24 w-full object-cover"
           />
         ) : (
-          <div className="flex h-24 items-center justify-center bg-slate-50 text-sm text-slate-500">
+          <div className="flex h-24 items-center justify-center bg-[#faf9f4] text-sm text-ink-muted">
             📄 PDF
           </div>
         )}
@@ -152,7 +152,7 @@ function NoteRow({
   }
 
   return (
-    <div className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
+    <div className="space-y-3 rounded-2xl border border-hairline bg-[#faf9f4] p-4">
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <Field label="Fornecedor">
           <Input
@@ -186,7 +186,7 @@ function NoteRow({
               onRemove={() => onRemovePhoto(a.id)}
             />
           ))}
-          <label className="flex h-24 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-dashed border-slate-300 bg-white text-center text-xs text-slate-500 hover:bg-slate-100">
+          <label className="flex h-24 cursor-pointer flex-col items-center justify-center rounded-md border-2 border-dashed border-hairline bg-surface text-center text-xs text-ink-muted hover:bg-[#eef1e9]">
             + fotos
             <input
               type="file"
@@ -275,7 +275,7 @@ function AddNoteForm({ reimbursementId }: { reimbursementId: number }) {
   }
 
   return (
-    <div className="space-y-3 rounded-lg border border-dashed border-slate-300 bg-white p-4">
+    <div className="space-y-3 rounded-2xl border border-dashed border-hairline bg-surface p-4">
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <Field label="Fornecedor">
           <Input
@@ -305,10 +305,10 @@ function AddNoteForm({ reimbursementId }: { reimbursementId: number }) {
           accept="image/*,application/pdf"
           multiple
           onChange={(e) => setFiles(Array.from(e.target.files ?? []))}
-          className="block w-full text-sm text-slate-600"
+          className="block w-full text-sm text-ink-muted"
         />
         {files.length > 0 && (
-          <p className="mt-1 text-xs text-slate-500">
+          <p className="mt-1 text-xs text-ink-muted">
             {files.length} arquivo(s) selecionado(s)
           </p>
         )}
@@ -367,7 +367,7 @@ export function NotesManager({
       </div>
 
       {notes.length === 0 && (
-        <p className="text-sm text-slate-400">Nenhuma nota cadastrada.</p>
+        <p className="text-sm text-ink-faint">Nenhuma nota cadastrada.</p>
       )}
 
       {notes.map((note) => (

@@ -7,7 +7,7 @@ import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import * as schema from "../src/db/schema";
 
-const { users, departments, expenseTypes } = schema;
+const { users, roles, departments, expenseTypes } = schema;
 
 async function main() {
   const url = process.env.DATABASE_URL;
@@ -15,6 +15,20 @@ async function main() {
 
   const client = postgres(url, { prepare: false });
   const db = drizzle(client, { schema });
+
+  // Papel ADMIN (único papel hoje; acesso uniforme no backend).
+  let adminRole = (
+    await db.select().from(roles).where(eq(roles.name, "ADMIN")).limit(1)
+  )[0];
+  if (!adminRole) {
+    adminRole = (
+      await db
+        .insert(roles)
+        .values({ name: "ADMIN", description: "Acesso administrativo completo" })
+        .returning()
+    )[0];
+    console.log("Papel ADMIN criado.");
+  }
 
   // Admin
   const email = (process.env.ADMIN_EMAIL ?? "").toLowerCase().trim();
@@ -32,7 +46,14 @@ async function main() {
     console.log(`Admin já existe: ${email}`);
   } else {
     const passwordHash = await bcrypt.hash(password, 10);
-    await db.insert(users).values({ email, passwordHash, name });
+    // mustChangePassword=true: a senha do seed é temporária; troca + MFA no 1º acesso.
+    await db.insert(users).values({
+      email,
+      passwordHash,
+      name,
+      roleId: adminRole.id,
+      mustChangePassword: true,
+    });
     console.log(`Admin criado: ${email}`);
   }
 

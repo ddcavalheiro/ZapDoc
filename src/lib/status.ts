@@ -40,20 +40,20 @@ export const STATUS_LABELS: Record<Status, string> = {
 
 /** Classes Tailwind para o badge de cada status. */
 export const STATUS_BADGE: Record<Status, string> = {
-  PENDENTE: "bg-amber-100 text-amber-800 ring-amber-600/20",
-  VERIFICADO: "bg-sky-100 text-sky-800 ring-sky-600/20",
-  AGUARDANDO_PAGAMENTO: "bg-violet-100 text-violet-800 ring-violet-600/20",
-  PAGO: "bg-emerald-100 text-emerald-800 ring-emerald-600/20",
-  RECUSADO: "bg-rose-100 text-rose-800 ring-rose-600/20",
+  PENDENTE: "bg-[#f8edd3] text-[#8a6410]",
+  VERIFICADO: "bg-[#e2ecf7] text-[#1f4e86]",
+  AGUARDANDO_PAGAMENTO: "bg-[#e8e6f7] text-[#433ba0]",
+  PAGO: "bg-[#dcede6] text-[#0b6e55]",
+  RECUSADO: "bg-[#f7e2de] text-[#9b2f24]",
 };
 
-/** Cor base (hex) para gráficos. */
+/** Cor base (hex) para gráficos e o ponto do badge. */
 export const STATUS_COLOR: Record<Status, string> = {
-  PENDENTE: "#d97706",
-  VERIFICADO: "#0284c7",
-  AGUARDANDO_PAGAMENTO: "#7c3aed",
-  PAGO: "#059669",
-  RECUSADO: "#e11d48",
+  PENDENTE: "#c9921f",
+  VERIFICADO: "#235fa8",
+  AGUARDANDO_PAGAMENTO: "#574fbc",
+  PAGO: "#0b6e55",
+  RECUSADO: "#b23a2e",
 };
 
 export function isStatus(value: string): value is Status {

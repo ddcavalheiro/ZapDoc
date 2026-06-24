@@ -49,10 +49,10 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-900">Dashboard</h1>
+        <h1 className="text-xl font-bold text-ink">Dashboard</h1>
         <Link
           href="/admin/solicitacoes"
-          className="text-sm font-medium text-slate-700 hover:underline"
+          className="text-sm font-medium text-brand hover:underline"
         >
           Ver solicitações →
         </Link>
@@ -62,11 +62,15 @@ export default async function DashboardPage() {
         {cards.map((c) => (
           <div
             key={c.label}
-            className="rounded-lg border border-slate-200 bg-white p-4"
+            className="rounded-2xl border border-hairline bg-surface p-5"
           >
-            <p className="text-xs font-medium text-slate-500">{c.label}</p>
-            <p className={`mt-1 text-2xl font-bold ${c.color}`}>{c.value}</p>
-            <p className="text-xs text-slate-400">{c.hint}</p>
+            <p className="text-xs font-medium text-ink-muted">{c.label}</p>
+            <p
+              className={`mt-1 font-display text-2xl font-bold tnum ${c.color}`}
+            >
+              {c.value}
+            </p>
+            <p className="tnum text-xs text-ink-faint">{c.hint}</p>
           </div>
         ))}
       </div>
@@ -79,7 +83,7 @@ export default async function DashboardPage() {
           monthly={monthly}
         />
       ) : (
-        <div className="rounded-lg border border-dashed border-slate-300 bg-white p-10 text-center text-slate-400">
+        <div className="rounded-2xl border border-dashed border-hairline bg-surface p-10 text-center text-ink-faint">
           Ainda não há solicitações para exibir gráficos.
         </div>
       )}
