@@ -58,6 +58,16 @@ export default async function SolicitacoesPage({
     return `/admin/solicitacoes${qs ? `?${qs}` : ""}`;
   };
 
+  // Fundo da linha por status, para diferenciação rápida na conferência.
+  const rowBg = (status: Status) => {
+    if (status === "CONCILIADO") return "bg-[#eaf6f0] hover:bg-[#e0f1e9]";
+    if (status === "PAGO") return "bg-[#eaf1fb] hover:bg-[#e0eaf8]";
+    if (status === "RECUSADO") return "bg-[#fbeeec] hover:bg-[#f7e4e0]";
+    return "bg-surface hover:bg-[#faf9f4]";
+  };
+  const isLocked = (status: Status) =>
+    status === "PAGO" || status === "CONCILIADO";
+
   // Cabeçalho de coluna clicável que alterna a ordenação.
   const sortableHeader = (label: string, col: SortKey) => {
     const active = sort === col;
@@ -213,7 +223,7 @@ export default async function SolicitacoesPage({
           </thead>
           <tbody className="divide-y divide-hairline">
             {rows.map((r) => (
-              <tr key={r.id} className="hover:bg-[#faf9f4]">
+              <tr key={r.id} className={rowBg(r.status as Status)}>
                 <td className="px-3 py-2 text-ink-faint">#{r.id}</td>
                 <td className="px-3 py-2 font-medium text-ink">
                   {r.requesterName}
@@ -233,7 +243,11 @@ export default async function SolicitacoesPage({
                   {r.attachmentCount}
                 </td>
                 <td className="px-3 py-2">
-                  <StatusControl id={r.id} status={r.status as Status} />
+                  <StatusControl
+                    id={r.id}
+                    status={r.status as Status}
+                    locked={isLocked(r.status as Status)}
+                  />
                 </td>
                 <td className="px-3 py-2 text-right">
                   <Link
@@ -261,7 +275,9 @@ export default async function SolicitacoesPage({
         {rows.map((r) => (
           <div
             key={r.id}
-            className="rounded-2xl border border-hairline bg-surface p-4"
+            className={`rounded-2xl border border-hairline p-4 ${
+              rowBg(r.status as Status).split(" ")[0] || "bg-surface"
+            }`}
           >
             <div className="flex items-start justify-between">
               <div>

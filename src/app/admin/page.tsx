@@ -22,10 +22,13 @@ export default async function DashboardPage() {
       color: "text-amber-600",
     },
     {
-      label: STATUS_LABELS.AGUARDANDO_PAGAMENTO,
-      value: countOf(STATUS.AGUARDANDO_PAGAMENTO),
-      hint: formatBRL(totalOf(STATUS.AGUARDANDO_PAGAMENTO)),
-      color: "text-violet-600",
+      label: "A pagar (verif. + aguard.)",
+      value:
+        countOf(STATUS.VERIFICADO) + countOf(STATUS.AGUARDANDO_PAGAMENTO),
+      hint: formatBRL(
+        totalOf(STATUS.VERIFICADO) + totalOf(STATUS.AGUARDANDO_PAGAMENTO),
+      ),
+      color: "text-sky-600",
     },
     {
       label: STATUS_LABELS.PAGO,
@@ -34,13 +37,10 @@ export default async function DashboardPage() {
       color: "text-emerald-600",
     },
     {
-      label: "A pagar (verif. + aguard.)",
-      value:
-        countOf(STATUS.VERIFICADO) + countOf(STATUS.AGUARDANDO_PAGAMENTO),
-      hint: formatBRL(
-        totalOf(STATUS.VERIFICADO) + totalOf(STATUS.AGUARDANDO_PAGAMENTO),
-      ),
-      color: "text-sky-600",
+      label: STATUS_LABELS.CONCILIADO,
+      value: countOf(STATUS.CONCILIADO),
+      hint: formatBRL(totalOf(STATUS.CONCILIADO)),
+      color: "text-cyan-700",
     },
   ];
 

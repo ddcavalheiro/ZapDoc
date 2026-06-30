@@ -22,7 +22,7 @@ import {
   or,
   sql,
 } from "drizzle-orm";
-import { isStatus, OPEN_STATUSES, type Status } from "@/lib/status";
+import { isStatus, OPEN_STATUSES, STATUS, type Status } from "@/lib/status";
 
 export async function getActiveDepartments() {
   return db
@@ -356,6 +356,40 @@ export async function getNotesByReimbursementIds(ids: number[]) {
     .where(inArray(notes.reimbursementId, ids))
     .orderBy(asc(notes.id));
 }
+
+/**
+ * Solicitações candidatas à conciliação bancária: ainda não conciliadas e que
+ * representam um pagamento a conferir (aguardando pagamento, em verificação ou já
+ * marcadas como pagas na aplicação). `CONCILIADO` e `RECUSADO` ficam de fora.
+ */
+export async function getReconciliationCandidates() {
+  return db
+    .select({
+      id: reimbursements.id,
+      requesterName: reimbursements.requesterName,
+      amount: reimbursements.amount,
+      expenseDate: reimbursements.expenseDate,
+      paidAt: reimbursements.paidAt,
+      status: reimbursements.status,
+      departmentName: departments.name,
+      expenseTypeName: expenseTypes.name,
+    })
+    .from(reimbursements)
+    .leftJoin(departments, eq(reimbursements.departmentId, departments.id))
+    .leftJoin(expenseTypes, eq(reimbursements.expenseTypeId, expenseTypes.id))
+    .where(
+      inArray(reimbursements.status, [
+        STATUS.AGUARDANDO_PAGAMENTO,
+        STATUS.VERIFICADO,
+        STATUS.PAGO,
+      ]),
+    )
+    .orderBy(desc(reimbursements.expenseDate), desc(reimbursements.id));
+}
+
+export type ReconciliationCandidate = Awaited<
+  ReturnType<typeof getReconciliationCandidates>
+>[number];
 
 /** Agregações para o dashboard. */
 export async function getDashboardData() {

@@ -272,19 +272,27 @@ async function applyStatusChange(
 ): Promise<ActionState> {
   const current = (
     await db
-      .select({ status: reimbursements.status })
+      .select({ status: reimbursements.status, paidAt: reimbursements.paidAt })
       .from(reimbursements)
       .where(eq(reimbursements.id, id))
       .limit(1)
   )[0];
   if (!current) return { ok: false, error: "Solicitação não encontrada." };
 
+  // `PAGO`/`CONCILIADO` mantêm uma data de pagamento; os demais a limpam.
+  const paidAt =
+    newStatus === STATUS.PAGO
+      ? new Date()
+      : newStatus === STATUS.CONCILIADO
+        ? (current.paidAt ?? new Date())
+        : null;
+
   await db
     .update(reimbursements)
     .set({
       status: newStatus,
       statusReason: newStatus === STATUS.RECUSADO ? (reason ?? null) : null,
-      paidAt: newStatus === STATUS.PAGO ? new Date() : null,
+      paidAt,
       updatedAt: new Date(),
     })
     .where(eq(reimbursements.id, id));
@@ -320,6 +328,96 @@ export async function changeStatus(
     };
   }
   return applyStatusChange(id, parsed.data.status as Status, parsed.data.reason);
+}
+
+/* -------------------------- Conciliação bancária -------------------------- */
+
+/** Status a partir dos quais uma solicitação pode ser conciliada. */
+const RECONCILABLE_FROM: Status[] = [
+  STATUS.AGUARDANDO_PAGAMENTO,
+  STATUS.VERIFICADO,
+  STATUS.PAGO,
+];
+
+export interface ReconcileItem {
+  id: number;
+  /** Data do lançamento no extrato (yyyy-mm-dd) — usada como data de pagamento. */
+  paymentDate: string;
+}
+
+export type ReconcileResult =
+  | { ok: true; count: number }
+  | { ok: false; error: string };
+
+/**
+ * Aprova a conciliação: promove as solicitações confirmadas para `CONCILIADO`,
+ * preenche `paidAt` com a data do extrato quando ainda não houver, e registra na
+ * auditoria (`status_history`) que foi conciliado via arquivo do banco informado.
+ */
+export async function reconcileReimbursements(
+  bankName: string,
+  items: ReconcileItem[],
+): Promise<ReconcileResult> {
+  await requireUser();
+
+  if (!Array.isArray(items) || items.length === 0) {
+    return { ok: false, error: "Nenhuma solicitação confirmada para aprovar." };
+  }
+  const bank = (bankName || "").trim() || "Banco não identificado";
+
+  let count = 0;
+  for (const item of items) {
+    const id = Number(item.id);
+    if (!Number.isInteger(id)) continue;
+
+    const current = (
+      await db
+        .select({ status: reimbursements.status, paidAt: reimbursements.paidAt })
+        .from(reimbursements)
+        .where(eq(reimbursements.id, id))
+        .limit(1)
+    )[0];
+    // Ignora silenciosamente o que já não é conciliável (ex.: alterado entre o
+    // carregamento do extrato e a aprovação).
+    if (!current || !RECONCILABLE_FROM.includes(current.status as Status)) {
+      continue;
+    }
+
+    // Data do extrato → meio-dia UTC, evitando deslocar o dia ao formatar.
+    const fromStatement = /^\d{4}-\d{2}-\d{2}$/.test(item.paymentDate ?? "")
+      ? new Date(`${item.paymentDate}T12:00:00Z`)
+      : null;
+
+    await db
+      .update(reimbursements)
+      .set({
+        status: STATUS.CONCILIADO,
+        paidAt: current.paidAt ?? fromStatement ?? new Date(),
+        statusReason: null,
+        updatedAt: new Date(),
+      })
+      .where(eq(reimbursements.id, id));
+
+    await db.insert(statusHistory).values({
+      reimbursementId: id,
+      fromStatus: current.status,
+      toStatus: STATUS.CONCILIADO,
+      note: `Conciliado via arquivo - banco ${bank}`,
+    });
+    count++;
+  }
+
+  if (count === 0) {
+    return {
+      ok: false,
+      error: "Nenhuma solicitação pôde ser conciliada (status já alterado?).",
+    };
+  }
+
+  revalidatePath("/admin/conciliacao");
+  revalidatePath("/admin/solicitacoes");
+  revalidatePath("/admin");
+  return { ok: true, count };
 }
 
 /** Mudança de status programática (botões inline da listagem). */

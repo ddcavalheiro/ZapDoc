@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { setReimbursementStatus } from "@/actions/reimbursements";
+import { StatusBadge } from "@/components/status-badge";
 import {
   STATUS,
   STATUS_LABELS,
@@ -13,9 +14,12 @@ import {
 export function StatusControl({
   id,
   status,
+  locked = false,
 }: {
   id: number;
   status: Status;
+  /** Quando travado, exibe apenas o badge; alteração só pela tela de detalhe. */
+  locked?: boolean;
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -44,6 +48,15 @@ export function StatusControl({
         router.refresh();
       }
     });
+  }
+
+  // Pago/Conciliado: estados "fechados". Para alterar, usar a tela de detalhe.
+  if (locked) {
+    return (
+      <span title="Para alterar, abra a solicitação em “Ver”.">
+        <StatusBadge status={status} />
+      </span>
+    );
   }
 
   return (

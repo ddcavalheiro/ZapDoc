@@ -4,6 +4,7 @@ export const STATUS = {
   VERIFICADO: "VERIFICADO",
   AGUARDANDO_PAGAMENTO: "AGUARDANDO_PAGAMENTO",
   PAGO: "PAGO",
+  CONCILIADO: "CONCILIADO",
   RECUSADO: "RECUSADO",
 } as const;
 
@@ -17,6 +18,7 @@ export const STATUS_ORDER: Status[] = [
   STATUS.VERIFICADO,
   STATUS.AGUARDANDO_PAGAMENTO,
   STATUS.PAGO,
+  STATUS.CONCILIADO,
   STATUS.RECUSADO,
 ];
 
@@ -35,6 +37,7 @@ export const STATUS_LABELS: Record<Status, string> = {
   VERIFICADO: "Verificando",
   AGUARDANDO_PAGAMENTO: "Pendente de pagamento",
   PAGO: "Pago",
+  CONCILIADO: "Conciliado",
   RECUSADO: "Recusado",
 };
 
@@ -44,6 +47,7 @@ export const STATUS_BADGE: Record<Status, string> = {
   VERIFICADO: "bg-[#e2ecf7] text-[#1f4e86]",
   AGUARDANDO_PAGAMENTO: "bg-[#e8e6f7] text-[#433ba0]",
   PAGO: "bg-[#dcede6] text-[#0b6e55]",
+  CONCILIADO: "bg-[#d3e9ec] text-[#0a5e6e]",
   RECUSADO: "bg-[#f7e2de] text-[#9b2f24]",
 };
 
@@ -53,6 +57,7 @@ export const STATUS_COLOR: Record<Status, string> = {
   VERIFICADO: "#235fa8",
   AGUARDANDO_PAGAMENTO: "#574fbc",
   PAGO: "#0b6e55",
+  CONCILIADO: "#0e7d90",
   RECUSADO: "#b23a2e",
 };
 

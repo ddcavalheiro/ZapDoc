@@ -9,7 +9,7 @@
 
 | ID | Tema | Status |
 |----|------|--------|
-| [REQ1](#req1--conciliação-bancária) | Conciliação bancária | 🔎 Levantamento |
+| [REQ1](#req1--conciliação-bancária) | Conciliação bancária | 🚧 Em implementação (fase 1 entregue) |
 | [REQ2](#req2--login-com-roles) | Login + MFA (fundação de identidade) | 🟢 Entregue (reformulado) |
 | [REQ3](#req3--auditoria) | Auditoria | ✅ Decidido (próximo) |
 | [REQ4](#req4--segurança-de-dados-sensíveis) | Segurança de dados sensíveis | 🔎 Levantamento |
@@ -83,12 +83,50 @@ extratos bancários.
   `bank_transactions` persistente ou fluxo efêmero (parse em memória → confere →
   descarta, guardando só o vínculo/resultado).
 
-### Dúvidas / decisões em aberto
-- [ ] Os 3 bancos oferecem OFX? (coletar 1 amostra de cada — OFX e/ou Excel)
-- [ ] Extrato é **descartado** após conciliar ou guardamos histórico? (ver REQ4)
-- [ ] `reconciliation_status` separado (recomendado) ou novos valores no enum atual?
-- [ ] Janela de tolerância de data para casamento automático (± quantos dias?)
+### Decisões tomadas (2026-06-30) e implementadas (fase 1)
+
+Após análise da amostra real de OFX (Santander, em `docs/OFX Samples/extrato.ofx`) e
+alinhamento com o cliente, a fase 1 foi **decidida e implementada**:
+
+- **Formato:** OFX 1.x (SGML). A amostra é válida; particularidades tratadas no parser:
+  vírgula decimal, moeda `BRC`→`BRL`, tags não fechadas (SGML), data
+  `YYYYMMDD…[-3:GMT]`, `MEMO` com padding. (`src/lib/ofx.ts`)
+- **Tela separada:** `/admin/conciliacao` (grupo Gestão). Não foi misturada na tela de
+  Solicitações (que já é densa).
+- **Fluxo efêmero (alinha com REQ4):** o OFX é lido **no browser**, conferido e
+  **descartado**. O XML bruto **não** é persistido; só o resultado (mudança de status +
+  auditoria) é gravado.
+- **Status de conciliação:** decidiu-se por um **novo valor no enum** `CONCILIADO`
+  (status **final**), e **não** por uma dimensão separada `reconciliation_status`. `PAGO`
+  segue sendo o ato de marcar pagamento na aplicação; `CONCILIADO` é a confirmação
+  contra o extrato. (migration `0002`)
+- **Candidatas ao match:** solicitações em `AGUARDANDO_PAGAMENTO`, `VERIFICADO` e `PAGO`
+  (exclui `CONCILIADO`/`RECUSADO`).
+- **Tabela dirigida pela solicitação:** cada linha = uma candidata, com as colunas do
+  extrato preenchidas quando há match. Colunas da solicitação: solicitante, valor, data
+  da solicitação, data de pagamento. Colunas do extrato (só **débitos**): valor, data,
+  tipo, confiança, memo. Switch por linha (Confirmado/Pendente).
+- **Casamento:** `abs(TRNAMT) == amount` (centavos) + data de `DTPOSTED` dentro de uma
+  **janela configurável (campo "Tolerância (dias)", default 3)** vs `paidAt ?? expenseDate`.
+  Atribuição gulosa (um débito casa com no máximo uma solicitação). Confiança: **Exato**
+  (0 dia de desvio) / **Aproximado** (dentro da janela) / **Sem match**.
+  (`src/lib/reconciliation.ts`)
+- **Aprovação em 2 botões:** **Confirmar Todos** marca como confirmado todas as linhas
+  com match (em memória, não persiste); **Aprovar Confirmados** persiste → promove a
+  `CONCILIADO`, preenche `paidAt` com a **data do extrato** quando vazio, e grava em
+  `status_history` o `note` **"Conciliado via arquivo - banco {nome}"**.
+  (`reconcileReimbursements` em `src/actions/reimbursements.ts`)
+- **Nome do banco:** mapa `BANKID → nome` (`033 → Santander`), com fallback ao `ORG`.
+  Pronto para os outros 2 bancos: basta acrescentar linhas no mapa.
+
+### Dúvidas / decisões ainda em aberto (fase 2)
+- [ ] Os outros 2 bancos oferecem OFX? (coletar 1 amostra de cada — OFX e/ou Excel).
+  Se vier Excel, criar mapeador de colunas configurável (não chumbar parser por banco).
+- [ ] Persistir vínculo/histórico de conciliação (tabela `bank_transactions`) ou seguir
+  efêmero? Depende da decisão de segurança/criptografia do REQ4.
+- [ ] Selo "Conciliado" também na listagem/detalhe de Solicitações (ponte fase 2).
 - [ ] Como tratar 1 pagamento que cobre N reembolsos (ou vice-versa)?
+- [ ] Conciliar **entradas** (créditos) — ex.: PIX devolvido/estorno? (hoje só débitos)
 
 ---
 
@@ -220,3 +258,7 @@ Decisões que destravam o planejamento de várias frentes:
 
 - **2026-06-22** — Criação. Levantamento inicial dos 4 REQs a partir de `docs/TODO.MD`,
   com considerações técnicas, matriz de roles (rascunho) e dúvidas em aberto.
+- **2026-06-30** — REQ1 (conciliação) decidido e **fase 1 implementada**: tela
+  `/admin/conciliacao`, parser OFX no browser (efêmero), novo status `CONCILIADO`
+  (migration `0002`), casamento valor+data com tolerância configurável, fluxo
+  Confirmar Todos / Aprovar Confirmados e auditoria via `status_history`.

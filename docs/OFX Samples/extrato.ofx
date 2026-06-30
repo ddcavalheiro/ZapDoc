@@ -1,0 +1,1436 @@
+OFXHEADER:100
+DATA:OFXSGML
+VERSION:102
+SECURITY:NONE
+ENCODING:USASCII
+CHARSET:1252
+COMPRESSION:NONE
+OLDFILEUID:NONE
+NEWFILEUID:NONE
+<OFX>
+    <SIGNONMSGSRSV1>
+        <SONRS>
+            <STATUS>
+                <CODE>0
+                <SEVERITY>INFO
+            </STATUS>
+            <DTSERVER>20260630081015[-3:GMT]
+            <LANGUAGE>ENG
+            <FI>
+                <ORG>SANTANDER
+                <FID>SANTANDER
+            </FI>
+        </SONRS>
+    </SIGNONMSGSRSV1>
+    <BANKMSGSRSV1>
+        <STMTTRNRS>
+            <TRNUID>1
+            <STATUS>
+                <CODE>0
+                <SEVERITY>INFO
+            </STATUS>
+            <STMTRS>
+                <CURDEF>BRC
+                <BANKACCTFROM>
+                    <BANKID>033
+                    <ACCTID>3731130049205
+                    <ACCTTYPE>CHECKING
+                </BANKACCTFROM>
+                <BANKTRANLIST>
+                    <DTSTART>20260501000000[-3:GMT]
+                    <DTEND>20260531000000[-3:GMT]
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>10,00
+                        <FITID>3731130049205202606300810150
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       10270045988
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>2206,95
+                        <FITID>3731130049205202606300810151
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       05789949924
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>470,00
+                        <FITID>3731130049205202606300810152
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       29106796320
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>550,00
+                        <FITID>3731130049205202606300810153
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       15176594854
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>500,00
+                        <FITID>3731130049205202606300810154
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       07628088961
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>220,00
+                        <FITID>3731130049205202606300810155
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       05796859935
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>9000,00
+                        <FITID>3731130049205202606300810156
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>RESGATE FUNDO DE INVESTIMENTO
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>-8432,95
+                        <FITID>3731130049205202606300810157
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX ENVIADO                        ANDRE LUIS FERREIRA DA SI
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>-8,61
+                        <FITID>3731130049205202606300810158
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>TARIFA AVULSA ENVIO PIX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>10000,00
+                        <FITID>3731130049205202606300810159
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>RESGATE FUNDO DE INVESTIMENTO
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>-250,00
+                        <FITID>37311300492052026063008101510
+                        <CHECKNUM>111876
+                        <PAYEEID>0
+                        <MEMO>TRANSF VALOR P/ CONTA DIF TITULAR  50656066920
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>-13680,00
+                        <FITID>37311300492052026063008101511
+                        <CHECKNUM>111976
+                        <PAYEEID>0
+                        <MEMO>TRANSF VALOR P/ CONTA DIF TITULAR  50656066920
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>-4554,00
+                        <FITID>37311300492052026063008101512
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX AGENDADO                       DIEGO FERREIRA HELEODORO
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>-21,58
+                        <FITID>37311300492052026063008101513
+                        <CHECKNUM>174097
+                        <PAYEEID>0
+                        <MEMO>PIX AGENDADO                       DIEGO EDUARDO DE SA SOUZA
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>1400,00
+                        <FITID>37311300492052026063008101514
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       96273461368
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>800,00
+                        <FITID>37311300492052026063008101515
+                        <CHECKNUM>004879
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       03124625650
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260504000000[-3:GMT]
+                        <TRNAMT>1790,19
+                        <FITID>37311300492052026063008101516
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>RESGATE CONTAMAX AUTOMATICO
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260505000000[-3:GMT]
+                        <TRNAMT>1000,00
+                        <FITID>37311300492052026063008101517
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       05210071944
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260505000000[-3:GMT]
+                        <TRNAMT>2320,00
+                        <FITID>37311300492052026063008101518
+                        <CHECKNUM>190764
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       50656066920
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260505000000[-3:GMT]
+                        <TRNAMT>244,00
+                        <FITID>37311300492052026063008101519
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       35633018915
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260505000000[-3:GMT]
+                        <TRNAMT>1500,00
+                        <FITID>37311300492052026063008101520
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       70525650997
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260505000000[-3:GMT]
+                        <TRNAMT>1300,00
+                        <FITID>37311300492052026063008101521
+                        <CHECKNUM>532765
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       20725310987
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260505000000[-3:GMT]
+                        <TRNAMT>300,00
+                        <FITID>37311300492052026063008101522
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       00572591942
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260505000000[-3:GMT]
+                        <TRNAMT>166,02
+                        <FITID>37311300492052026063008101523
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       11434801985
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260505000000[-3:GMT]
+                        <TRNAMT>-6830,02
+                        <FITID>37311300492052026063008101524
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260506000000[-3:GMT]
+                        <TRNAMT>1080,00
+                        <FITID>37311300492052026063008101525
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       01641477997
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260506000000[-3:GMT]
+                        <TRNAMT>2200,00
+                        <FITID>37311300492052026063008101526
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       25247645839
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260506000000[-3:GMT]
+                        <TRNAMT>460,00
+                        <FITID>37311300492052026063008101527
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       02138634990
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260506000000[-3:GMT]
+                        <TRNAMT>1214,00
+                        <FITID>37311300492052026063008101528
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       27253080890
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260506000000[-3:GMT]
+                        <TRNAMT>-4954,00
+                        <FITID>37311300492052026063008101529
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260507000000[-3:GMT]
+                        <TRNAMT>1250,00
+                        <FITID>37311300492052026063008101530
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       20260819808
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260507000000[-3:GMT]
+                        <TRNAMT>740,00
+                        <FITID>37311300492052026063008101531
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       41336445904
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260507000000[-3:GMT]
+                        <TRNAMT>30,00
+                        <FITID>37311300492052026063008101532
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       04682768662
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260507000000[-3:GMT]
+                        <TRNAMT>-2020,00
+                        <FITID>37311300492052026063008101533
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>300,00
+                        <FITID>37311300492052026063008101534
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       16567056991
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>50,00
+                        <FITID>37311300492052026063008101535
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       16567056991
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>365,44
+                        <FITID>37311300492052026063008101536
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       06920995905
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>-1000,00
+                        <FITID>37311300492052026063008101537
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX AGENDADO                       DIVISORIAS PARANA
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>560,00
+                        <FITID>37311300492052026063008101538
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       48645745887
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>1603,43
+                        <FITID>37311300492052026063008101539
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       08129947951
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>242,00
+                        <FITID>37311300492052026063008101540
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       46831240925
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>517,00
+                        <FITID>37311300492052026063008101541
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       05431781960
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>5,00
+                        <FITID>37311300492052026063008101542
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       10270045988
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>-115,04
+                        <FITID>37311300492052026063008101543
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PAGAMENTO DE BOLETO OUTROS BANCOS  Blitz Service Ltda
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>-390,00
+                        <FITID>37311300492052026063008101544
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PAGAMENTO DE BOLETO OUTROS BANCOS  PORTO SEGURO VIDA E PREVI
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>-320,90
+                        <FITID>37311300492052026063008101545
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PAGAMENTO DE BOLETO OUTROS BANCOS  CWB COMERCIO DE EMBALAGEN
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>-400,04
+                        <FITID>37311300492052026063008101546
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PAGAMENTO DE BOLETO                ALLIANZ SEGUROS
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>-217,04
+                        <FITID>37311300492052026063008101547
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX ENVIADO                        VINICIUS CZARNESKI DOS SA
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260508000000[-3:GMT]
+                        <TRNAMT>-1199,85
+                        <FITID>37311300492052026063008101548
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>506,00
+                        <FITID>37311300492052026063008101549
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       69945969900
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>-1000,00
+                        <FITID>37311300492052026063008101550
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX AGENDADO                       Andressa Laysa Arcega Kla
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>400,00
+                        <FITID>37311300492052026063008101551
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       09556875948
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>160,00
+                        <FITID>37311300492052026063008101552
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       04682768662
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>2538,00
+                        <FITID>37311300492052026063008101553
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       02509487965
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>500,00
+                        <FITID>37311300492052026063008101554
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       27592238000100
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>950,00
+                        <FITID>37311300492052026063008101555
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       07635271903
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>500,00
+                        <FITID>37311300492052026063008101556
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       23359692000164
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>300,00
+                        <FITID>37311300492052026063008101557
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       50004298004
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>400,00
+                        <FITID>37311300492052026063008101558
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       02525675959
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>-6,72
+                        <FITID>37311300492052026063008101559
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>TARIFA AVULSA ENVIO PIX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>15,00
+                        <FITID>37311300492052026063008101560
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       04682768662
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>100,00
+                        <FITID>37311300492052026063008101561
+                        <CHECKNUM>035132
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       05846240933
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>350,00
+                        <FITID>37311300492052026063008101562
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       12718985000174
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>2000,00
+                        <FITID>37311300492052026063008101563
+                        <CHECKNUM>430488
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       13925202668
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260511000000[-3:GMT]
+                        <TRNAMT>-7712,28
+                        <FITID>37311300492052026063008101564
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260512000000[-3:GMT]
+                        <TRNAMT>-5,14
+                        <FITID>37311300492052026063008101565
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>TARIFA AVULSA ENVIO PIX            10/05/2026
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260512000000[-3:GMT]
+                        <TRNAMT>-774,55
+                        <FITID>37311300492052026063008101566
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>DEBITO AUT. CTA ENERGIA ELETRICA   LUZ IPH
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260512000000[-3:GMT]
+                        <TRNAMT>779,69
+                        <FITID>37311300492052026063008101567
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>RESGATE CONTAMAX AUTOMATICO
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260513000000[-3:GMT]
+                        <TRNAMT>1500,00
+                        <FITID>37311300492052026063008101568
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       32504973802
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260513000000[-3:GMT]
+                        <TRNAMT>-1500,00
+                        <FITID>37311300492052026063008101569
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260515000000[-3:GMT]
+                        <TRNAMT>-148,60
+                        <FITID>37311300492052026063008101570
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>DEBITO AUT. PROVEDOR INTERNET      LIGGA S/A
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260515000000[-3:GMT]
+                        <TRNAMT>-188,00
+                        <FITID>37311300492052026063008101571
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>DEBITO AUTOM MENSALIDADE TV A CABO CLARO INTERN
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260515000000[-3:GMT]
+                        <TRNAMT>-1500,00
+                        <FITID>37311300492052026063008101572
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX AGENDADO                       Danilo dos Santos Soares
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260515000000[-3:GMT]
+                        <TRNAMT>532,80
+                        <FITID>37311300492052026063008101573
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       79248098991
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260515000000[-3:GMT]
+                        <TRNAMT>-479,70
+                        <FITID>37311300492052026063008101574
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX ENVIADO                        CAMILA VIVIANE KRUGER FER
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260515000000[-3:GMT]
+                        <TRNAMT>-1621,00
+                        <FITID>37311300492052026063008101575
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX ENVIADO                        EDILMAR RODRIGUES FERREIR
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260515000000[-3:GMT]
+                        <TRNAMT>210,00
+                        <FITID>37311300492052026063008101576
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       05796859935
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260515000000[-3:GMT]
+                        <TRNAMT>3194,50
+                        <FITID>37311300492052026063008101577
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>RESGATE CONTAMAX AUTOMATICO
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>520,00
+                        <FITID>37311300492052026063008101578
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       63010640625
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>1600,00
+                        <FITID>37311300492052026063008101579
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>DEP DINHEIRO ATM
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>1350,00
+                        <FITID>37311300492052026063008101580
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>DEP DINHEIRO ATM
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>200,00
+                        <FITID>37311300492052026063008101581
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>DEP DINHEIRO ATM
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>4460,00
+                        <FITID>37311300492052026063008101582
+                        <CHECKNUM>115609
+                        <PAYEEID>0
+                        <MEMO>DEP CHEQUE ATM
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>5100,00
+                        <FITID>37311300492052026063008101583
+                        <CHECKNUM>115702
+                        <PAYEEID>0
+                        <MEMO>DEP CHEQUE ATM
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>10,00
+                        <FITID>37311300492052026063008101584
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       11862047960
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>50,00
+                        <FITID>37311300492052026063008101585
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       34838473915
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>11,00
+                        <FITID>37311300492052026063008101586
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       09670951909
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>50,00
+                        <FITID>37311300492052026063008101587
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       25247645839
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>-13,77
+                        <FITID>37311300492052026063008101588
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>TARIFA AVULSA ENVIO PIX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>-178,99
+                        <FITID>37311300492052026063008101589
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>DEBITO AUT. CONTA AGUA E ESGOTO    AGUA IPH
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>500,00
+                        <FITID>37311300492052026063008101590
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       31887373861
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>-1300,00
+                        <FITID>37311300492052026063008101591
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX AGENDADO                       IGREJA PRESBITERIANA DO H
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>968,00
+                        <FITID>37311300492052026063008101592
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       63051745987
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>-586,80
+                        <FITID>37311300492052026063008101593
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PAGAMENTO DE BOLETO OUTROS BANCOS  MERCADO PAGO INST PAG LTD
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>-1515,15
+                        <FITID>37311300492052026063008101594
+                        <CHECKNUM>171635
+                        <PAYEEID>0
+                        <MEMO>TRANSF VALOR P/ CONTA DIF TITULAR  50656066920
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260518000000[-3:GMT]
+                        <TRNAMT>-1664,29
+                        <FITID>37311300492052026063008101595
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260519000000[-3:GMT]
+                        <TRNAMT>-5,14
+                        <FITID>37311300492052026063008101596
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>TARIFA AVULSA ENVIO PIX            18/05/2026
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260519000000[-3:GMT]
+                        <TRNAMT>-217,40
+                        <FITID>37311300492052026063008101597
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX AGENDADO                       VINICIUS CZARNESKI DOS SA
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260519000000[-3:GMT]
+                        <TRNAMT>217,40
+                        <FITID>37311300492052026063008101598
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX DEVOLVIDO                      09556875948
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260519000000[-3:GMT]
+                        <TRNAMT>-9554,86
+                        <FITID>37311300492052026063008101599
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260520000000[-3:GMT]
+                        <TRNAMT>-1,58
+                        <FITID>373113004920520260630081015100
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>TARIFA AVULSA ENVIO PIX            19/05/2026
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260520000000[-3:GMT]
+                        <TRNAMT>-2000,00
+                        <FITID>373113004920520260630081015101
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX AGENDADO                       MARCOS AURELIO VOSS
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260520000000[-3:GMT]
+                        <TRNAMT>-2000,00
+                        <FITID>373113004920520260630081015102
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX AGENDADO                       MAURO CEZAR VOSS
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260520000000[-3:GMT]
+                        <TRNAMT>750,00
+                        <FITID>373113004920520260630081015103
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       76658023972
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260520000000[-3:GMT]
+                        <TRNAMT>1305,06
+                        <FITID>373113004920520260630081015104
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>TED RECEBIDA                       017.333.849-60
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260520000000[-3:GMT]
+                        <TRNAMT>78,00
+                        <FITID>373113004920520260630081015105
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       09660525958
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260520000000[-3:GMT]
+                        <TRNAMT>39,00
+                        <FITID>373113004920520260630081015106
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       09660525958
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260520000000[-3:GMT]
+                        <TRNAMT>300,00
+                        <FITID>373113004920520260630081015107
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       70525650997
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260520000000[-3:GMT]
+                        <TRNAMT>-411,48
+                        <FITID>373113004920520260630081015108
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PAGAMENTO DE BOLETO OUTROS BANCOS  ORSEGUPS MONITORAMENTO EL
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260520000000[-3:GMT]
+                        <TRNAMT>1941,00
+                        <FITID>373113004920520260630081015109
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>RESGATE CONTAMAX AUTOMATICO
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260521000000[-3:GMT]
+                        <TRNAMT>-10,28
+                        <FITID>373113004920520260630081015110
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>TARIFA AVULSA ENVIO PIX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260521000000[-3:GMT]
+                        <TRNAMT>970,00
+                        <FITID>373113004920520260630081015111
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       27253080890
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260521000000[-3:GMT]
+                        <TRNAMT>-959,72
+                        <FITID>373113004920520260630081015112
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260522000000[-3:GMT]
+                        <TRNAMT>-390,00
+                        <FITID>373113004920520260630081015113
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PAGAMENTO DE BOLETO                PORTO SEGURO VI
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260522000000[-3:GMT]
+                        <TRNAMT>-1500,00
+                        <FITID>373113004920520260630081015114
+                        <CHECKNUM>184614
+                        <PAYEEID>0
+                        <MEMO>TRANSF VALOR P/ CONTA DIF TITULAR  50656066920
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260522000000[-3:GMT]
+                        <TRNAMT>-1400,00
+                        <FITID>373113004920520260630081015115
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX ENVIADO                        Presbiterio das Araucaria
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260522000000[-3:GMT]
+                        <TRNAMT>190,00
+                        <FITID>373113004920520260630081015116
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       01465209980
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260522000000[-3:GMT]
+                        <TRNAMT>3100,00
+                        <FITID>373113004920520260630081015117
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>RESGATE CONTAMAX AUTOMATICO
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260525000000[-3:GMT]
+                        <TRNAMT>50,00
+                        <FITID>373113004920520260630081015118
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       01733384960
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260525000000[-3:GMT]
+                        <TRNAMT>1726,62
+                        <FITID>373113004920520260630081015119
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       06175763947
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260525000000[-3:GMT]
+                        <TRNAMT>1848,95
+                        <FITID>373113004920520260630081015120
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       09473500980
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260525000000[-3:GMT]
+                        <TRNAMT>-5,14
+                        <FITID>373113004920520260630081015121
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>TARIFA AVULSA ENVIO PIX            22/05/2026
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260525000000[-3:GMT]
+                        <TRNAMT>-112,00
+                        <FITID>373113004920520260630081015122
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PAGAMENTO DE BOLETO OUTROS BANCOS  NUCLEO INF COORD PONTO BR
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260525000000[-3:GMT]
+                        <TRNAMT>-1250,00
+                        <FITID>373113004920520260630081015123
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX ENVIADO                        Caciano Canofer
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260525000000[-3:GMT]
+                        <TRNAMT>1200,00
+                        <FITID>373113004920520260630081015124
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       05420469979
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260525000000[-3:GMT]
+                        <TRNAMT>-3458,43
+                        <FITID>373113004920520260630081015125
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260526000000[-3:GMT]
+                        <TRNAMT>800,00
+                        <FITID>373113004920520260630081015126
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       05600667914
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260526000000[-3:GMT]
+                        <TRNAMT>1310,00
+                        <FITID>373113004920520260630081015127
+                        <CHECKNUM>294591
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       06742476982
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260526000000[-3:GMT]
+                        <TRNAMT>-2110,00
+                        <FITID>373113004920520260630081015128
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260527000000[-3:GMT]
+                        <TRNAMT>-5,14
+                        <FITID>373113004920520260630081015129
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>TARIFA AVULSA ENVIO PIX            25/05/2026
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260527000000[-3:GMT]
+                        <TRNAMT>500,00
+                        <FITID>373113004920520260630081015130
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       07628088961
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260527000000[-3:GMT]
+                        <TRNAMT>-494,86
+                        <FITID>373113004920520260630081015131
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260528000000[-3:GMT]
+                        <TRNAMT>1100,00
+                        <FITID>373113004920520260630081015132
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       34838473915
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260528000000[-3:GMT]
+                        <TRNAMT>3000,00
+                        <FITID>373113004920520260630081015133
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       05738859000116
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260528000000[-3:GMT]
+                        <TRNAMT>-4100,00
+                        <FITID>373113004920520260630081015134
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260529000000[-3:GMT]
+                        <TRNAMT>1800,00
+                        <FITID>373113004920520260630081015135
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       12979769835
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260529000000[-3:GMT]
+                        <TRNAMT>15,00
+                        <FITID>373113004920520260630081015136
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       10270045988
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260529000000[-3:GMT]
+                        <TRNAMT>562,00
+                        <FITID>373113004920520260630081015137
+                        <CHECKNUM>241760
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       07988307940
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260529000000[-3:GMT]
+                        <TRNAMT>-2377,00
+                        <FITID>373113004920520260630081015138
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>APLICACAO CONTAMAX
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>540,00
+                        <FITID>373113004920520260630081015139
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       12181440840
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>400,00
+                        <FITID>373113004920520260630081015140
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       09556875948
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>406,40
+                        <FITID>373113004920520260630081015141
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       29106796320
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>-1040,00
+                        <FITID>373113004920520260630081015142
+                        <CHECKNUM>443422
+                        <PAYEEID>0
+                        <MEMO>PIX ENVIADO                        WESLLEY SOUZA DO NASCIMEN
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>2206,95
+                        <FITID>373113004920520260630081015143
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       05789949924
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>-13680,00
+                        <FITID>373113004920520260630081015144
+                        <CHECKNUM>112467
+                        <PAYEEID>0
+                        <MEMO>TRANSF VALOR P/ CONTA DIF TITULAR  50656066920
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>-4554,00
+                        <FITID>373113004920520260630081015145
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX AGENDADO                       DIEGO FERREIRA HELEODORO
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>118,50
+                        <FITID>373113004920520260630081015146
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       02581510218
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>1400,00
+                        <FITID>373113004920520260630081015147
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       96273461368
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>770,00
+                        <FITID>373113004920520260630081015148
+                        <CHECKNUM>331445
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       03124625650
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>50,00
+                        <FITID>373113004920520260630081015149
+                        <CHECKNUM>451246
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       03124625650
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>1000,00
+                        <FITID>373113004920520260630081015150
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       05210071944
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>550,00
+                        <FITID>373113004920520260630081015151
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       15176594854
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>980,00
+                        <FITID>373113004920520260630081015152
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>PIX RECEBIDO                       88391230910
+                    </STMTTRN>
+                    <STMTTRN>
+                        <TRNTYPE>CREDIT
+                        <DTPOSTED>20260601000000[-3:GMT]
+                        <TRNAMT>10852,15
+                        <FITID>373113004920520260630081015153
+                        <CHECKNUM>00000000
+                        <PAYEEID>0
+                        <MEMO>RESGATE CONTAMAX AUTOMATICO
+                    </STMTTRN>
+                </BANKTRANLIST>
+                <LEDGERBAL>
+                    <BALAMT>0,00
+                    <DTASOF>20260630081015[-3:GMT]
+                </LEDGERBAL>
+            </STMTRS>
+        </STMTTRNRS>
+    </BANKMSGSRSV1>
+</OFX>

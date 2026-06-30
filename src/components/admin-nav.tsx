@@ -10,6 +10,7 @@ const NAV = [
     items: [
       { href: "/admin", label: "Dashboard", icon: "grid" },
       { href: "/admin/solicitacoes", label: "Solicitações", icon: "list" },
+      { href: "/admin/conciliacao", label: "Conciliação", icon: "reconcile" },
       { href: "/admin/relatorios", label: "Relatórios", icon: "chart" },
     ],
   },
@@ -42,6 +43,12 @@ const ICONS: Record<string, React.ReactNode> = {
     </>
   ),
   chart: <path d="M4 20V10M10 20V4M16 20v-7M2 20h20" />,
+  reconcile: (
+    <>
+      <path d="M4 7h11M4 7l3-3M4 7l3 3" />
+      <path d="M20 17H9M20 17l-3-3M20 17l-3 3" />
+    </>
+  ),
   building: (
     <>
       <rect x="5" y="3" width="14" height="18" rx="1.5" />

@@ -117,7 +117,12 @@ export function AdminShell({
           </span>
         </header>
 
-        <main className="mx-auto w-full max-w-6xl flex-1 px-5 py-7 md:px-8">
+        <main
+          className={`mx-auto w-full flex-1 px-5 py-7 md:px-8 ${
+            // Conciliação usa largura total (tabela larga); demais telas, max-w-6xl.
+            pathname.startsWith("/admin/conciliacao") ? "max-w-none" : "max-w-6xl"
+          }`}
+        >
           {children}
         </main>
       </div>
