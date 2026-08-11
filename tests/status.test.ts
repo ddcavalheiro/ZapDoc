@@ -11,23 +11,25 @@ import {
 } from "@/lib/status";
 
 describe("status", () => {
-  it("expõe os cinco status do fluxo", () => {
+  it("expõe os seis status do fluxo", () => {
     expect(STATUS_VALUES).toEqual([
       "PENDENTE",
       "VERIFICADO",
       "AGUARDANDO_PAGAMENTO",
       "PAGO",
+      "CONCILIADO",
       "RECUSADO",
     ]);
   });
 
-  it("OPEN_STATUSES contém apenas status em aberto (sem PAGO/RECUSADO)", () => {
+  it("OPEN_STATUSES contém apenas status em aberto (sem PAGO/CONCILIADO/RECUSADO)", () => {
     expect(OPEN_STATUSES).toEqual([
       STATUS.PENDENTE,
       STATUS.VERIFICADO,
       STATUS.AGUARDANDO_PAGAMENTO,
     ]);
     expect(OPEN_STATUSES).not.toContain(STATUS.PAGO);
+    expect(OPEN_STATUSES).not.toContain(STATUS.CONCILIADO);
     expect(OPEN_STATUSES).not.toContain(STATUS.RECUSADO);
   });
 
