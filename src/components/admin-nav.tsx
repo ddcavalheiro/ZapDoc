@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
+/** Itens com `adminOnly` só aparecem para o perfil ADMIN. */
 const NAV = [
   {
     group: "Gestão",
@@ -21,6 +22,17 @@ const NAV = [
       { href: "/admin/tipos-despesa", label: "Tipos de despesa", icon: "tag" },
       { href: "/admin/usuarios", label: "Usuários", icon: "users" },
       { href: "/admin/roles", label: "Perfis de Acesso", icon: "shield" },
+    ],
+  },
+  {
+    group: "Sistema",
+    items: [
+      {
+        href: "/admin/manutencao",
+        label: "Manutenção",
+        icon: "wrench",
+        adminOnly: true,
+      },
     ],
   },
 ] as const;
@@ -69,6 +81,9 @@ const ICONS: Record<string, React.ReactNode> = {
     </>
   ),
   shield: <path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z" />,
+  wrench: (
+    <path d="M15.5 3.5a5 5 0 0 0-6.1 6.4L3 16.3V21h4.7l6.4-6.4a5 5 0 0 0 6.4-6.1l-3 3-2.8-2.8 3-3z" />
+  ),
 };
 
 function NavIcon({ name }: { name: string }) {
@@ -93,12 +108,19 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export function AdminNav() {
+export function AdminNav({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname();
+
+  const sections = NAV.map((section) => ({
+    group: section.group,
+    items: section.items.filter(
+      (item) => isAdmin || !("adminOnly" in item && item.adminOnly),
+    ),
+  })).filter((section) => section.items.length > 0);
 
   return (
     <nav className="mt-5 flex flex-col gap-0.5">
-      {NAV.map((section) => (
+      {sections.map((section) => (
         <div key={section.group}>
           <div className="px-3 pb-2 pt-4 text-[10.5px] font-semibold uppercase tracking-wider text-[#5f5d52]">
             {section.group}

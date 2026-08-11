@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { ADMIN_ROLE } from "@/lib/action-utils";
 import { AdminShell } from "@/components/admin-shell";
 
 export default async function AdminLayout({
@@ -15,7 +16,11 @@ export default async function AdminLayout({
 
   return (
     <AdminShell
-      user={{ name: session.user.name, email: session.user.email }}
+      user={{
+        name: session.user.name,
+        email: session.user.email,
+        isAdmin: session.user.role === ADMIN_ROLE,
+      }}
     >
       {children}
     </AdminShell>

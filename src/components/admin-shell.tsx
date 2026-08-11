@@ -8,7 +8,11 @@ import { AdminNav } from "@/components/admin-nav";
 /** Rotas que não usam o shell (barra lateral), mesmo com sessão ativa. */
 const BARE_ROUTES = ["/admin/login", "/admin/onboarding"];
 
-type ShellUser = { name?: string | null; email?: string | null };
+type ShellUser = {
+  name?: string | null;
+  email?: string | null;
+  isAdmin?: boolean;
+};
 
 function SidebarContent({ user }: { user: ShellUser }) {
   const initials = (user.name ?? user.email ?? "?").slice(0, 2).toUpperCase();
@@ -23,7 +27,7 @@ function SidebarContent({ user }: { user: ShellUser }) {
         </span>
       </div>
 
-      <AdminNav />
+      <AdminNav isAdmin={user.isAdmin} />
 
       <form action={logoutAction} className="mt-auto">
         <div className="flex items-center gap-3 rounded-xl bg-white/5 p-3">

@@ -442,3 +442,18 @@ export async function getDashboardData() {
 
   return { byStatus, byDepartment, byExpenseType, monthly };
 }
+
+/** Contagem das tabelas transacionais — alimenta o aviso da tela de manutenção. */
+export async function getWipeableCounts() {
+  const count = sql<number>`count(*)`.mapWith(Number);
+  const [r] = await db.select({ n: count }).from(reimbursements);
+  const [n] = await db.select({ n: count }).from(notes);
+  const [a] = await db.select({ n: count }).from(noteAttachments);
+  const [h] = await db.select({ n: count }).from(statusHistory);
+  return {
+    reimbursements: r?.n ?? 0,
+    notes: n?.n ?? 0,
+    attachments: a?.n ?? 0,
+    statusHistory: h?.n ?? 0,
+  };
+}
